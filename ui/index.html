@@ -11,6 +11,21 @@
 </head>
 <body>
 
+  <div id="options" data-role="panel" data-position="left" data-display="push">
+  <!-- panel content goes here -->
+    <h2>John Doe</h2>
+    <ul data-role="listview" data-theme="a">
+      <li data-filtertext="places" data-icon="location"><a href="#">Places</a></li>
+      <li data-filtertext="places" data-icon="star"><a href="#">Devices</a></li>
+      <li data-filtertext="places" data-icon="tag"><a href="#">Groups</a></li>
+      <li data-filtertext="places" data-icon="clock"><a href="#">Rules</a></li>
+      <li data-filtertext="places" data-icon="gear"><a href="#">Settings</a></li>
+      <li data-filtertext="places" data-icon="mail"><a href="#">About</a></li>
+      <li data-filtertext="places" data-icon="info"><a href="#">Help</a></li>
+      <li data-filtertext="places" data-icon="arrow-l"><a href="#">Exit</a></li>
+    </ul>
+  </div><!-- /panel -->
+
   <div id="login" data-role="page">
 
     <div data-role="header">
@@ -39,13 +54,18 @@
 
   <div id="main" data-role="page">
 
-      <div data-role="header">
-          <h1>Open IoT</h1>
-      </div><!-- /header -->
+    <div data-role="header">
+      <a href="#options" data-icon="bars" data-iconpos="notext"></a>
+      <h1>Open IoT</h1>
+    </div><!-- /header -->
 
-      <div data-role="content">
-          <p>Not Another Open Source IoT Framework</p>
-      </div><!-- /content -->
+    <div data-role="content">
+      <ul data-role="listview" data-filter="true">
+        <li><a href="#">Switch A</a></li>
+        <li><a href="#">Switch B</a></li>
+      </ul>
+
+    </div><!-- /content -->
 
   </div><!-- /page -->
 </body>
