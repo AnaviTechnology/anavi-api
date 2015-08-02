@@ -4,20 +4,49 @@
     <title>My Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./jqm/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
     <script src="./jqm/jquery-1.11.3.min.js"></script>
     <script src="./jqm/jquery.mobile-1.4.5.min.js"></script>
+    <script src="./js/ui.js"></script>
 </head>
 <body>
-    <div data-role="page">
 
-        <div data-role="header">
-            <h1>Open IoT</h1>
-        </div><!-- /header -->
+  <div id="login" data-role="page">
 
-        <div data-role="content">
-            <p>Not Another Open Source IoT Framework</p>
-        </div><!-- /content -->
+    <div data-role="header">
+        <h1>Open IoT</h1>
+    </div><!-- /header -->
 
-    </div><!-- /page -->
+    <div data-role="content">
+
+        <h1>Not Another Open Source IoT Framework</h1>
+
+        <label for="basic">E-mail:</label>
+        <input type="text" name="username" id="username" value=""  />
+
+        <label for="basic">Password:</label>
+        <input type="password" name="password" id="password" value=""  />
+
+        <input id="loginLogIn" type="submit" value="Log In" />
+
+        <p id="loginForgetPassword"><a href="#">Forgot your email address or password?</a></p>
+
+        <a href="#" data-role="button">Sign Up</a>
+
+    </div><!-- /content -->
+
+  </div>
+
+  <div id="main" data-role="page">
+
+      <div data-role="header">
+          <h1>Open IoT</h1>
+      </div><!-- /header -->
+
+      <div data-role="content">
+          <p>Not Another Open Source IoT Framework</p>
+      </div><!-- /content -->
+
+  </div><!-- /page -->
 </body>
 </html>
