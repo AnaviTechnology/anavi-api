@@ -15,14 +15,17 @@
   <!-- panel content goes here -->
     <h2>John Doe</h2>
     <ul data-role="listview" data-theme="a">
-      <li data-filtertext="places" data-icon="location"><a href="#">Places</a></li>
-      <li data-filtertext="places" data-icon="star"><a href="#">Devices</a></li>
-      <li data-filtertext="places" data-icon="tag"><a href="#">Groups</a></li>
-      <li data-filtertext="places" data-icon="clock"><a href="#">Rules</a></li>
-      <li data-filtertext="places" data-icon="gear"><a href="#">Settings</a></li>
-      <li data-filtertext="places" data-icon="mail"><a href="#">About</a></li>
-      <li data-filtertext="places" data-icon="info"><a href="#">Help</a></li>
-      <li data-filtertext="places" data-icon="arrow-l"><a href="#">Exit</a></li>
+      <li data-icon="home"><a href="#">Dashboard</a></li>
+      <li data-icon="location"><a href="#places">Places</a></li>
+      <li data-filtertext="devices" data-icon="star"><a href="#devices">Devices</a></li>
+      <li data-icon="tag"><a href="#">Groups</a></li>
+      <li data-icon="clock"><a href="#">Rules</a></li>
+      <li data-icon="gear"><a href="#">Settings</a></li>
+      <li data-role="list-divider"></li>
+      <li data-icon="mail"><a href="#">Report a Problem</a></li>
+      <li data-icon="info"><a href="#">Help</a></li>
+      <li data-role="list-divider"></li>
+      <li data-icon="arrow-l"><a href="#login">Log out</a></li>
     </ul>
   </div><!-- /panel -->
 
@@ -52,11 +55,12 @@
 
   </div>
 
-  <div id="main" data-role="page">
+  <div id="devices" data-role="page">
 
     <div data-role="header">
       <a href="#options" data-icon="bars" data-iconpos="notext"></a>
-      <h1>Open IoT</h1>
+      <h1>Devices</h1>
+      <a href="#" data-icon="plus" data-iconpos="notext"></a>
     </div><!-- /header -->
 
     <div data-role="content">
@@ -68,5 +72,24 @@
     </div><!-- /content -->
 
   </div><!-- /page -->
+
+  <div id="places" data-role="page">
+
+    <div data-role="header">
+      <a href="#options" data-icon="bars" data-iconpos="notext"></a>
+      <h1>Places</h1>
+      <a href="#" data-icon="plus" data-iconpos="notext"></a>
+    </div><!-- /header -->
+
+    <div data-role="content">
+      <ul data-role="listview" data-filter="true">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Office</a></li>
+      </ul>
+
+    </div><!-- /content -->
+
+  </div><!-- /page -->
+
 </body>
 </html>

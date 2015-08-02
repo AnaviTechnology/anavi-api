@@ -5,7 +5,7 @@ $(document).ready(function() {
   //$("[data-role=panel]").panel().enhanceWithin();
 
   $('#loginLogIn').bind('click', function(event) {
-    $.mobile.pageContainer.pagecontainer("change", "#main");
+    $.mobile.pageContainer.pagecontainer("change", "#devices");
   });
 
 });
