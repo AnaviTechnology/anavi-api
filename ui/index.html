@@ -65,9 +65,51 @@
 
     <div data-role="content">
       <ul data-role="listview" data-filter="true">
-        <li><a href="#">Switch A</a></li>
-        <li><a href="#">Switch B</a></li>
+        <li><a href="#device">Switch A</a></li>
+        <li><a href="#device">Switch B</a></li>
       </ul>
+
+    </div><!-- /content -->
+
+  </div><!-- /page -->
+
+  <div id="device" data-role="page">
+
+    <div data-role="header">
+      <a data-icon="carat-l" data-iconpos="notext" data-rel="back"></a>
+      <h1>Switch A</h1>
+      <a href="#" data-icon="edit" data-iconpos="notext"></a>
+    </div><!-- /header -->
+
+    <div data-role="content">
+      <h2>Power Switch</h2>
+      <fieldset>
+        <div data-role="fieldcontain">
+          <label for="devicePower">Power:</label>
+            <select id="devicePower" data-role="flipswitch">
+              <option value="off">Off</option>
+              <option value="on">On</option>
+            </select>
+        </div>
+      </fieldset>
+      <h2>Statistics</h2>
+      <table data-role="table" id="my-table" data-mode="reflow">
+        <thead>
+          <tr>
+            <th>Online for: </th>
+            <th>Online since: </th>
+            <th>Electricity: </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>10:45 min</td>
+            <td>08:32</td>
+            <td>350.5 kWh used this month</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>Usage Over Last 7 Days</h2>
 
     </div><!-- /content -->
 
