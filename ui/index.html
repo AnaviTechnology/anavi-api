@@ -17,13 +17,13 @@
     <ul data-role="listview" data-theme="a">
       <li data-icon="home"><a href="#">Dashboard</a></li>
       <li data-icon="location"><a href="#places">Places</a></li>
-      <li data-filtertext="devices" data-icon="star"><a href="#devices">Devices</a></li>
-      <li data-icon="tag"><a href="#">Groups</a></li>
-      <li data-icon="clock"><a href="#">Rules</a></li>
-      <li data-icon="gear"><a href="#">Settings</a></li>
+      <li data-icon="star"><a href="#devices">Devices</a></li>
+      <li data-icon="tag"><a href="#groups">Groups</a></li>
+      <li data-icon="clock"><a href="#rules">Rules</a></li>
+      <li data-icon="gear"><a href="#settings">Settings</a></li>
       <li data-role="list-divider"></li>
-      <li data-icon="mail"><a href="#">Report a Problem</a></li>
-      <li data-icon="info"><a href="#">Help</a></li>
+      <li data-icon="mail"><a href="#reportProblem">Report a Problem</a></li>
+      <li data-icon="info"><a href="#help">Help</a></li>
       <li data-role="list-divider"></li>
       <li data-icon="arrow-l"><a href="#login">Log out</a></li>
     </ul>
@@ -87,6 +87,104 @@
         <li><a href="#">Office</a></li>
       </ul>
 
+    </div><!-- /content -->
+
+  </div><!-- /page -->
+
+  <div id="groups" data-role="page">
+
+    <div data-role="header">
+      <a href="#options" data-icon="bars" data-iconpos="notext"></a>
+      <h1>Groups</h1>
+      <a href="#" data-icon="plus" data-iconpos="notext"></a>
+    </div><!-- /header -->
+
+    <div data-role="content">
+      <ul data-role="listview" data-filter="true">
+        <li><a href="#">Lights</a></li>
+        <li><a href="#">Fans</a></li>
+        <li><a href="#">Doors</a></li>
+      </ul>
+
+    </div><!-- /content -->
+
+  </div><!-- /page -->
+
+  <div id="rules" data-role="page">
+
+    <div data-role="header">
+      <a href="#options" data-icon="bars" data-iconpos="notext"></a>
+      <h1>Rules</h1>
+      <a href="#" data-icon="plus" data-iconpos="notext"></a>
+    </div><!-- /header -->
+
+    <div data-role="content">
+      <ul data-role="listview" data-filter="true">
+        <li><a href="#">Control lights</a></li>
+      </ul>
+
+    </div><!-- /content -->
+
+  </div><!-- /page -->
+
+  <div id="settings" data-role="page">
+
+    <div data-role="header">
+      <a href="#options" data-icon="bars" data-iconpos="notext"></a>
+      <h1>Settings</h1>
+      <a href="#" data-icon="plus" data-iconpos="notext"></a>
+    </div><!-- /header -->
+
+    <div data-role="content">
+
+      <fieldset>
+        <div data-role="fieldcontain">
+          <label for="settingsTemperature">Temperature:</label>
+            <select id="settingsTemperature" data-role="flipswitch">
+              <option value="celsius">&deg;C</option>
+              <option value="fahrenheit">&deg;F</option>
+          </select>
+        </div>
+
+        <a href="#" id="settingsSave" data-role="button">Save</a>
+
+      </fieldset>
+
+    </div><!-- /content -->
+
+  </div><!-- /page -->
+
+  <div id="reportProblem" data-role="page">
+
+    <div data-role="header">
+      <a href="#options" data-icon="bars" data-iconpos="notext"></a>
+      <h1>Report a Problem</h1>
+      <a href="#" data-icon="plus" data-iconpos="notext"></a>
+    </div><!-- /header -->
+
+    <div data-role="content">
+      <label for="reportType" class="select">Type:</label>
+      <select name="reportType" id="reportType">
+        <option value="standard">Bug report</option>
+        <option value="rush">Feature request</option>
+      </select>
+      <label for="reportText">Your feedback:</label>
+      <textarea name="reportText" id="reportText"></textarea>
+      <a href="#" id="reportSend" data-role="button">Send</a>
+    </div><!-- /content -->
+
+  </div><!-- /page -->
+
+  <div id="help" data-role="page">
+
+    <div data-role="header">
+      <a href="#options" data-icon="bars" data-iconpos="notext"></a>
+      <h1>Help</h1>
+      <a href="#" data-icon="plus" data-iconpos="notext"></a>
+    </div><!-- /header -->
+
+    <div data-role="content">
+      <p>Open source framework for open source hardware Internet of Things</p>
     </div><!-- /content -->
 
   </div><!-- /page -->
