@@ -83,6 +83,7 @@
 
     <div data-role="content">
       <h2>Power Switch</h2>
+
       <fieldset>
         <div data-role="fieldcontain">
           <label for="devicePower">Power:</label>
@@ -92,24 +93,50 @@
             </select>
         </div>
       </fieldset>
-      <h2>Statistics</h2>
-      <table data-role="table" id="my-table" data-mode="reflow">
-        <thead>
-          <tr>
-            <th>Online for: </th>
-            <th>Online since: </th>
-            <th>Electricity: </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>10:45 min</td>
-            <td>08:32</td>
-            <td>350.5 kWh used this month</td>
-          </tr>
-        </tbody>
-      </table>
-      <h2>Usage Over Last 7 Days</h2>
+
+      <div data-role="collapsible-set">
+
+        <div data-role="collapsible" data-collapsed="false">
+          <h3>Statistics</h3>
+          <table data-role="table" id="my-table" data-mode="reflow">
+            <thead>
+              <tr>
+                <th>Online for: </th>
+                <th>Online since: </th>
+                <th>Electricity: </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>10:45 min</td>
+                <td>08:32</td>
+                <td>350.5 kWh used this month</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div data-role="collapsible">
+          <h3>Usage Over Last 7 Days</h3>
+          <p>TODO: add a table</p>
+        </div>
+
+        <div data-role="collapsible">
+          <h3>Usage Over Last Year</h3>
+          <p>TODO: add a table</p>
+        </div>
+
+        <div data-role="collapsible">
+          <h3>Features</h3>
+
+          <div data-role="controlgroup">
+            <a href="#" data-role="button" data-icon="check">Turn on/off</a>
+            <a href="#" data-role="button" data-icon="check">Monitor enery usage</a>
+          </div>
+
+        </div>
+
+      </div>
 
     </div><!-- /content -->
 
