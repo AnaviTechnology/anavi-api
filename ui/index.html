@@ -78,7 +78,7 @@
     <div data-role="header">
       <a data-icon="carat-l" data-iconpos="notext" data-rel="back"></a>
       <h1>Switch A</h1>
-      <a href="#" data-icon="edit" data-iconpos="notext"></a>
+      <a href="#deviceEdit" data-icon="edit" data-iconpos="notext"></a>
     </div><!-- /header -->
 
     <div data-role="content">
@@ -140,6 +140,31 @@
 
       </div>
 
+    </div><!-- /content -->
+
+  </div><!-- /page -->
+
+  <div id="deviceEdit" data-role="page">
+
+    <div data-role="header">
+      <a data-icon="carat-l" data-iconpos="notext" data-rel="back"></a>
+      <h1>Edit Switch A</h1>
+    </div><!-- /header -->
+
+    <div data-role="content">
+      <h2>Rename</h2>
+      <label for="basic">New Name:</label>
+      <input type="text" name="deviceNewName" id="deviceNewName" value="" data-clear-btn="true" />
+      <input type="submit" id="editDeviceRename" value="Rename">
+      <h2>Clear Statistics</h2>
+      <label for="select-choice-0" class="select">Clear statistics from:</label>
+      <select name="select-choice-0" id="select-choice-0">
+        <option value="standard">Today</option>
+        <option value="rush">Last 7 days</option>
+        <option value="express">Last month</option>
+        <option value="overnight">Forever</option>
+      </select>
+      <input type="submit" id="editDeviceClear" value="Clear">
     </div><!-- /content -->
 
   </div><!-- /page -->
