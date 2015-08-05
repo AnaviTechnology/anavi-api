@@ -15,7 +15,7 @@
   <!-- panel content goes here -->
     <h2>John Doe</h2>
     <ul data-role="listview" data-theme="a">
-      <li data-icon="home"><a href="#">Dashboard</a></li>
+      <li data-icon="home"><a href="#dashboard">Dashboard</a></li>
       <li data-icon="location"><a href="#places">Places</a></li>
       <li data-icon="star"><a href="#devices">Devices</a></li>
       <li data-icon="tag"><a href="#groups">Groups</a></li>
@@ -54,6 +54,42 @@
     </div><!-- /content -->
 
   </div>
+
+  <div id="dashboard" data-role="page">
+
+    <div data-role="header">
+      <a href="#options" data-icon="bars" data-iconpos="notext"></a>
+      <h1>Dashboard</h1>
+    </div><!-- /header -->
+
+    <div data-role="content">
+
+      <table data-role="table" id="my-table" data-mode="reflow">
+        <thead>
+          <tr>
+            <th>Devices: </th>
+            <th>Connected devices: </th>
+            <th>Electricity: </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="#devices">2</a></td>
+            <td><a href="#devices">2</a></td>
+            <td>350.5 kWh used this month</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Usage Over Last 7 Days</h2>
+      <p>TODO: add a table</p>
+
+      <h2>Usage Over Last 12 Months</h2>
+      <p>TODO: add a table</p>
+
+    </div><!-- /content -->
+
+  </div><!-- /page -->
 
   <div id="devices" data-role="page">
 
@@ -124,7 +160,7 @@
         </div>
 
         <div data-role="collapsible">
-          <h3>Usage Over Last Year</h3>
+          <h3>Usage Over Last 12 Months</h3>
           <p>TODO: add a table</p>
         </div>
 
