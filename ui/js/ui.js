@@ -4,6 +4,14 @@ $(document).ready(function() {
 
   $('#loginLogIn').bind('click', function(event) {
     $.mobile.pageContainer.pagecontainer("change", "#dashboard");
+    $('#dashboardOptionsLink').addClass('selected');
+  });
+
+  $('#options').on('click','a',function(event) {
+    $('#options a').removeClass('selected');
+    if ('logoutOptionsLink' !== event.target.id) {
+      $(this).addClass('selected');
+    }
   });
 
   $( "#device" ).on( "pagecreate", function( event, ui ) {
@@ -19,7 +27,6 @@ $(document).ready(function() {
   } );
 
 });
-
 
 $(document).on('pagecontainerbeforeshow', function(e, ui) {
   var pageId = $('body').pagecontainer('getActivePage').prop('id');

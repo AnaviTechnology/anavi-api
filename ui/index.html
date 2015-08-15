@@ -16,7 +16,7 @@
   <!-- panel content goes here -->
     <h2>John Doe</h2>
     <ul data-role="listview" data-theme="a">
-      <li data-icon="home"><a href="#dashboard">Dashboard</a></li>
+      <li data-icon="home"><a id="dashboardOptionsLink" href="#dashboard">Dashboard</a></li>
       <li data-icon="location"><a href="#places">Places</a></li>
       <li data-icon="star"><a href="#devices">Devices</a></li>
       <li data-icon="tag"><a href="#groups">Groups</a></li>
@@ -26,7 +26,7 @@
       <li data-icon="mail"><a href="#reportProblem">Report a Problem</a></li>
       <li data-icon="info"><a href="#help">Help</a></li>
       <li data-role="list-divider"></li>
-      <li data-icon="arrow-l"><a href="#login">Log out</a></li>
+      <li data-icon="arrow-l"><a id="logoutOptionsLink" href="#login">Log out</a></li>
     </ul>
   </div><!-- /panel -->
 
@@ -189,9 +189,9 @@
 
     <div data-role="content">
       <h2>Rename</h2>
-      <label for="basic">New Name:</label>
+      <label for="deviceNewName">New Name:</label>
       <input type="text" name="deviceNewName" id="deviceNewName" value="" data-clear-btn="true" />
-      <input type="submit" id="editDeviceRename" value="Rename">
+      <input type="submit" id="editDeviceRename" value="Rename" />
       <h2>Clear Statistics</h2>
       <label for="select-choice-0" class="select">Clear statistics from:</label>
       <select name="select-choice-0" id="select-choice-0">
@@ -200,7 +200,7 @@
         <option value="express">Last month</option>
         <option value="overnight">Forever</option>
       </select>
-      <input type="submit" id="editDeviceClear" value="Clear">
+      <input type="submit" id="editDeviceClear" value="Clear" />
     </div><!-- /content -->
 
   </div><!-- /page -->
@@ -210,7 +210,7 @@
     <div data-role="header">
       <a href="#options" data-icon="bars" data-iconpos="notext"></a>
       <h1>Places</h1>
-      <a href="#" data-icon="plus" data-iconpos="notext"></a>
+      <a href="#addEditPlace" data-icon="plus" data-iconpos="notext"></a>
     </div><!-- /header -->
 
     <div data-role="content">
@@ -219,6 +219,21 @@
         <li><a href="#">Office</a></li>
       </ul>
 
+    </div><!-- /content -->
+
+  </div><!-- /page -->
+
+  <div id="addEditPlace" data-role="page">
+
+    <div data-role="header">
+      <a data-icon="carat-l" data-iconpos="notext" data-rel="back"></a>
+      <h1>Add Place</h1>
+    </div><!-- /header -->
+
+    <div data-role="content">
+      <label for="deviceNewName">Place:</label>
+      <input type="text" name="addEditPlaceName" id="addEditPlaceName" value="" data-clear-btn="true" />
+      <input type="submit" id="addEditPlaceSave" value="Save" />
     </div><!-- /content -->
 
   </div><!-- /page -->
