@@ -101,8 +101,8 @@
 
     <div data-role="content">
       <ul data-role="listview" data-filter="true">
-        <li><a href="#device">Switch A</a></li>
-        <li><a href="#device">Switch B</a></li>
+        <li><a href="#device">Switch A <span class="ui-li-count powerOn">on</span></a></li>
+        <li><a href="#device">Switch B <span class="ui-li-count powerOff">off</span></a></li>
       </ul>
 
     </div><!-- /content -->
@@ -215,8 +215,37 @@
 
     <div data-role="content">
       <ul data-role="listview" data-filter="true">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Office</a></li>
+        <li><a href="#place">Home</a></li>
+        <li><a href="#place">Office</a></li>
+      </ul>
+
+    </div><!-- /content -->
+
+  </div><!-- /page -->
+
+  <div id="place" data-role="page">
+
+    <div data-role="header">
+      <a data-icon="carat-l" data-iconpos="notext" data-rel="back"></a>
+      <h1>Home</h1>
+      <a href="#addEditPlace" data-icon="edit" data-iconpos="notext"></a>
+    </div><!-- /header -->
+
+    <div data-role="content">
+
+      <fieldset>
+        <div data-role="fieldcontain">
+          <label for="devicePower">Power (all devices):</label>
+            <select id="devicePower" data-role="flipswitch">
+              <option value="off">Off</option>
+              <option value="on">On</option>
+            </select>
+        </div>
+      </fieldset>
+
+      <ul data-role="listview" data-filter="true">
+        <li><a href="#device">Switch A <span class="ui-li-count powerOn">on</span></a></li>
+        <li><a href="#device">Switch B <span class="ui-li-count powerOff">off</span></a></li>
       </ul>
 
     </div><!-- /content -->
