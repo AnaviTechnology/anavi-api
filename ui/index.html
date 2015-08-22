@@ -210,7 +210,7 @@
     <div data-role="header">
       <a href="#options" data-icon="bars" data-iconpos="notext"></a>
       <h1>Places</h1>
-      <a href="#addEditPlace" data-icon="plus" data-iconpos="notext"></a>
+      <a href="#addPlace" data-icon="plus" data-iconpos="notext"></a>
     </div><!-- /header -->
 
     <div data-role="content">
@@ -229,8 +229,7 @@
       <a data-icon="carat-l" data-iconpos="notext" data-rel="back"></a>
       <h1>Home</h1>
       <div class="ui-btn-right">
-        <a href="#addEditPlace" data-role="button" data-icon="edit" data-iconpos="notext"></a>
-        <a href="#addPlaceDevice" data-role="button" data-icon="plus" data-iconpos="notext"></a>
+        <a href="#editPlace" data-role="button" data-icon="edit" data-iconpos="notext"></a>
       </div>
     </div><!-- /header -->
 
@@ -255,17 +254,68 @@
 
   </div><!-- /page -->
 
-  <div id="addEditPlace" data-role="page">
+  <div id="placeDeviceAdd" data-role="page">
 
     <div data-role="header">
       <a data-icon="carat-l" data-iconpos="notext" data-rel="back"></a>
-      <h1>Add Place</h1>
+      <h1>Home</h1>
     </div><!-- /header -->
 
     <div data-role="content">
-      <label for="deviceNewName">Place:</label>
+      <h2>Add device</h2>
+      <ul data-role="listview" data-filter="true">
+        <li data-icon="plus"><a href="#place">Switch C</a></li>
+      </ul>
+    </div><!-- /content -->
+
+  </div><!-- /page -->
+
+  <div id="placeDeviceRemove" data-role="page">
+
+    <div data-role="header">
+      <a data-icon="carat-l" data-iconpos="notext" data-rel="back"></a>
+      <h1>Home</h1>
+    </div><!-- /header -->
+
+    <div data-role="content">
+      <h2>Remove device</h2>
+      <ul data-role="listview" data-filter="true">
+        <li data-icon="minus"><a href="#place">Switch A</a></li>
+        <li data-icon="minus"><a href="#place">Switch B</a></li>
+      </ul>
+    </div><!-- /content -->
+
+  </div><!-- /page -->
+
+  <div id="addPlace" data-role="page">
+
+    <div data-role="header">
+      <a data-icon="carat-l" data-iconpos="notext" data-rel="back"></a>
+      <h1>Add New Place</h1>
+    </div><!-- /header -->
+
+    <div data-role="content">
+      <label for="deviceNewName">Name:</label>
       <input type="text" name="addEditPlaceName" id="addEditPlaceName" value="" data-clear-btn="true" />
-      <input type="submit" id="addEditPlaceSave" value="Save" />
+      <input type="submit" id="editPlaceRename" data-icon="check" value="Save" />
+    </div><!-- /content -->
+
+  </div><!-- /page -->
+
+  <div id="editPlace" data-role="page">
+
+    <div data-role="header">
+      <a data-icon="carat-l" data-iconpos="notext" data-rel="back"></a>
+      <h1>Edit</h1>
+    </div><!-- /header -->
+
+    <div data-role="content">
+      <a href="#placeDeviceAdd" id="editPlaceAdd" data-role="button" data-icon="plus">Add device</a>
+      <a href="#placeDeviceRemove" id="editPlaceRemove" data-role="button" data-icon="minus">Remove device</a>
+
+      <label for="deviceNewName">Place:</label>
+      <input type="text" name="addEditPlaceName" id="addEditPlaceName" value="Home" data-clear-btn="true" />
+      <input type="submit" id="editPlaceRename" data-icon="recycle" value="Rename" />
     </div><!-- /content -->
 
   </div><!-- /page -->
