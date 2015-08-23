@@ -306,7 +306,7 @@
 
     <div data-role="header">
       <a data-icon="carat-l" data-iconpos="notext" data-rel="back"></a>
-      <h1>Edit</h1>
+      <h1>Edit Place</h1>
     </div><!-- /header -->
 
     <div data-role="content">
@@ -325,16 +325,78 @@
     <div data-role="header">
       <a href="#options" data-icon="bars" data-iconpos="notext"></a>
       <h1>Groups</h1>
-      <a href="#" data-icon="plus" data-iconpos="notext"></a>
+      <a href="#pageGroupAdd" data-icon="plus" data-iconpos="notext"></a>
     </div><!-- /header -->
 
     <div data-role="content">
       <ul data-role="listview" data-filter="true">
-        <li><a href="#">Lights</a></li>
-        <li><a href="#">Fans</a></li>
-        <li><a href="#">Doors</a></li>
+        <li><a href="#pageGroup">Lights</a></li>
+        <li><a href="#pageGroup">Fans</a></li>
+        <li><a href="#pageGroup">Doors</a></li>
       </ul>
 
+    </div><!-- /content -->
+
+  </div><!-- /page -->
+
+  <div id="pageGroup" data-role="page">
+
+    <div data-role="header">
+      <a data-icon="carat-l" data-iconpos="notext" data-rel="back"></a>
+      <h1>Lights</h1>
+      <a href="#pageGroupEdit" data-icon="edit" data-iconpos="notext"></a>
+    </div><!-- /header -->
+
+    <div data-role="content">
+
+      <fieldset>
+        <div data-role="fieldcontain">
+          <label for="devicePower">Power (all devices):</label>
+            <select id="devicePower" data-role="flipswitch">
+              <option value="off">Off</option>
+              <option value="on">On</option>
+            </select>
+        </div>
+      </fieldset>
+
+      <ul data-role="listview" data-filter="true">
+        <li><a href="#device">Switch A <span class="ui-li-count powerOn">on</span></a></li>
+        <li><a href="#device">Switch B <span class="ui-li-count powerOff">off</span></a></li>
+      </ul>
+
+    </div><!-- /content -->
+
+  </div><!-- /page -->
+
+  <div id="pageGroupAdd" data-role="page">
+
+    <div data-role="header">
+      <a data-icon="carat-l" data-iconpos="notext" data-rel="back"></a>
+      <h1>Add Group</h1>
+    </div><!-- /header -->
+
+    <div data-role="content">
+      <label for="deviceNewName">Name:</label>
+      <input type="text" name="groupNameAdd" id="groupNameAdd" value="" data-clear-btn="true" />
+      <input type="submit" id="groupAddAdd" data-icon="plus" value="Add Group" />
+    </div><!-- /content -->
+
+  </div><!-- /page -->
+
+  <div id="pageGroupEdit" data-role="page">
+
+    <div data-role="header">
+      <a data-icon="carat-l" data-iconpos="notext" data-rel="back"></a>
+      <h1>Edit Group</h1>
+    </div><!-- /header -->
+
+    <div data-role="content">
+      <a href="#pageGroupDeviceAdd" id="groupEditAdd" data-role="button" data-icon="plus">Add device</a>
+      <a href="#pageGroupDeviceRemove" id="groupEditRemove" data-role="button" data-icon="minus">Remove device</a>
+
+      <label for="deviceNewName">Group:</label>
+      <input type="text" name="groupNameEdit" id="groupNameEdit" value="Lights" data-clear-btn="true" />
+      <input type="submit" id="groupEditRename" data-icon="recycle" value="Rename" />
     </div><!-- /content -->
 
   </div><!-- /page -->
