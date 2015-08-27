@@ -3,7 +3,7 @@ $(document).ready(function() {
   $( "body>[data-role='panel']" ).panel().enhanceWithin();
 
   $('#loginLogIn').bind('click', function(event) {
-    $.mobile.pageContainer.pagecontainer("change", "#dashboard");
+    $.mobile.pageContainer.pagecontainer("change", "#pageDashboard");
     $('#dashboardOptionsLink').addClass('selected');
   });
 
@@ -30,7 +30,7 @@ $(document).ready(function() {
 
 $(document).on('pagecontainerbeforeshow', function(e, ui) {
   var pageId = $('body').pagecontainer('getActivePage').prop('id');
-  if ('dashboard' === pageId) {
+  if ('pageDashboard' === pageId) {
     charts.destroyCharts();
   }
   else if ('device' === pageId) {
@@ -40,7 +40,7 @@ $(document).on('pagecontainerbeforeshow', function(e, ui) {
 
 $(document).on('pagecontainershow', function(e, ui) {
     var pageId = $('body').pagecontainer('getActivePage').prop('id');
-    if ('dashboard' === pageId) {
+    if ('pageDashboard' === pageId) {
       charts.chartUsageLastWeek('dashboardChartUsageLastWeek');
       charts.chartUsageLastYear('dashboardChartUsageLastYear');
     }
