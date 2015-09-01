@@ -7,6 +7,19 @@ app.get('/', function (req, res) {
   res.send(JSON.stringify(data));
 });
 
+app.get('/dashboard', function (req, res) {
+  var data = new Object();
+  data.foo = "dashboard";
+  res.send(JSON.stringify(data));
+});
+
+app.get('/devices', function (req, res) {
+  var data = new Object();
+  data.foo = "devices";
+  res.send(JSON.stringify(data));
+});
+
+
 var server = app.listen(3000, function () {
   var host = server.address().address;
   var port = server.address().port;
