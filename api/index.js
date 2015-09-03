@@ -13,6 +13,12 @@ app.get('/dashboard', function (req, res) {
   res.send(JSON.stringify(data));
 });
 
+app.get('/places', function (req, res) {
+  var data = new Object();
+  data.foo = "places";
+  res.send(JSON.stringify(data));
+});
+
 app.get('/devices', function (req, res) {
   var data = new Object();
   data.foo = "devices";
