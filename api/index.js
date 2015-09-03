@@ -1,30 +1,75 @@
 var express = require('express');
 var app = express();
 
-app.get('/', function (req, res) {
-  var data = new Object();
-  data.foo = "bar";
-  res.send(JSON.stringify(data));
-});
+function dashboard(req, res) {
+  var data = {
+    devices: {
+      all: 3,
+      connected: 2
+    }
+  }
+  res.json(data);
+}
 
-app.get('/dashboard', function (req, res) {
-  var data = new Object();
-  data.foo = "dashboard";
-  res.send(JSON.stringify(data));
-});
+function places(req, res) {
+  var data = [
+    {
+      id: 1,
+      name: "home"
+    },
+    {
+      id: 2,
+      name: "office"
+    }
+  ];
+  res.json(data);
+}
 
-app.get('/places', function (req, res) {
-  var data = new Object();
-  data.foo = "places";
-  res.send(JSON.stringify(data));
-});
+function place(req, res) {
+  var placeId = req.param('id');
+  var data = {
+    id: placeId,
+    devices: [
+      {
+        id: 1,
+        name: "foo"
+      },
+      {
+        id: 2,
+        name: "bar"
+      }
+    ]
+  };
 
-app.get('/devices', function (req, res) {
-  var data = new Object();
-  data.foo = "devices";
-  res.send(JSON.stringify(data));
-});
+  res.json(data);
+}
 
+function devices(req, res) {
+  var data = [
+    {
+      id: 1,
+      name: "foo"
+    },
+    {
+      id: 2,
+      name: "bar"
+    }
+  ];
+  res.json(data);
+}
+
+//API version
+var apiVersion1 = express.Router();
+
+apiVersion1.get('/dashboard', dashboard);
+apiVersion1.get('/places', places);
+apiVersion1.get('/place/:id*', place);
+apiVersion1.get('/devices', devices);
+
+// Routing depending the version of the API
+app.use('/v1', apiVersion1);
+// Set the default version to latest.
+app.use('/', apiVersion1);
 
 var server = app.listen(3000, function () {
   var host = server.address().address;
