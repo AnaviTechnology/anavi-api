@@ -45,16 +45,18 @@ function place(req, res) {
 }
 
 function devices(req, res) {
-  var data = [
-    {
-      id: 1,
-      name: "foo"
-    },
-    {
-      id: 2,
-      name: "bar"
-    }
-  ];
+  var data = {
+    devices: [
+      {
+        id: 1,
+        name: "foo"
+      },
+      {
+        id: 2,
+        name: "bar"
+      }]
+  };
+
   res.json(data);
 }
 
@@ -67,9 +69,11 @@ apiVersion1.get('/place/:id*', place);
 apiVersion1.get('/devices', devices);
 
 // Routing depending the version of the API
-app.use('/v1', apiVersion1);
+app.use('/api/v1', apiVersion1);
 // Set the default version to latest.
-app.use('/', apiVersion1);
+app.use('/api', apiVersion1);
+//servie static HTML5 files
+app.use('/', express.static(__dirname + '/../ui'));
 
 var server = app.listen(3000, function () {
   var host = server.address().address;
