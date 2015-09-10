@@ -60,6 +60,26 @@ function devices(req, res) {
   res.json(data);
 }
 
+function groups(req, res) {
+  var data = {
+    groups: [
+      {
+        id: 1,
+        name: "Lights"
+      },
+      {
+        id: 2,
+        name: "Fans"
+      },
+      {
+        id: 3,
+        name: "Doors"
+      },]
+  };
+
+  res.json(data);
+}
+
 //API version
 var apiVersion1 = express.Router();
 
@@ -67,6 +87,7 @@ apiVersion1.get('/dashboard', dashboard);
 apiVersion1.get('/places', places);
 apiVersion1.get('/place/:id*', place);
 apiVersion1.get('/devices', devices);
+apiVersion1.get('/groups', groups);
 
 // Routing depending the version of the API
 app.use('/api/v1', apiVersion1);
