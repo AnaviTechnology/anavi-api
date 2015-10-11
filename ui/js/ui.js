@@ -3,8 +3,20 @@ $(document).ready(function() {
   $( "body>[data-role='panel']" ).panel().enhanceWithin();
 
   $('#loginLogIn').bind('click', function(event) {
-    $.mobile.pageContainer.pagecontainer("change", "#pageDashboard");
-    $('#dashboardOptionsLink').addClass('selected');
+
+    $.post("/login", { username: $('#username').val(),
+                      password: $('#password').val() },
+      function(data, status){
+        if ( (undefined !== data.error) && (0 === data.error) &&
+             (undefined !== data.errorCode) && (0 === data.errorCode) ) {
+
+          $('#username').val('');
+          $('#password').val('');
+          $.mobile.pageContainer.pagecontainer("change", "#pageDashboard");
+          $('#dashboardOptionsLink').addClass('selected');
+        }
+    });
+
   });
 
   $('#options').on('click','a',function(event) {
