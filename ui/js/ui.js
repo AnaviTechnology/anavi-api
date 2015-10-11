@@ -1,44 +1,71 @@
+function loginSubmit() {
+
+  var loginUsername = $('#username').val();
+  var loginPassword = $('#password').val();
+
+  if (0 == loginUsername.length) {
+    $('#dialogText').html('Please enter username.');
+    $.mobile.changePage( "#dialog", { role: "dialog" } );
+    return;
+  }
+
+  if (0 == loginPassword.length) {
+    $('#dialogText').html('Please enter password.');
+    $.mobile.changePage( "#dialog", { role: "dialog" } );
+    return;
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "/login",
+    data: { username: loginUsername, password: loginPassword },
+    success: function(data, status) {
+      if ( (undefined !== data.error) && (0 === data.error) &&
+           (undefined !== data.errorCode) && (0 === data.errorCode) ) {
+
+        $('#username').val('');
+        $('#password').val('');
+        $.mobile.pageContainer.pagecontainer("change", "#pageDashboard");
+        $('#dashboardOptionsLink').addClass('selected');
+      }
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+        $('#dialogText').html('Wrong username or password.');
+        $.mobile.changePage( "#dialog", { role: "dialog" } );
+    },
+  });
+}
+
+function loginSubmitOnEnter() {
+  if (13 === event.which) {
+    if (0 === $('#username').val().length) {
+      $('#username').focus();
+    }
+    else if (0 === $('#password').val().length) {
+      $('#password').focus();
+    }
+    else {
+      loginSubmit();
+    }
+  }
+}
+
 $(document).ready(function() {
 
   $( "body>[data-role='panel']" ).panel().enhanceWithin();
 
+  $('#username').focus();
+
+  $("#username").keypress(function(event) {
+    loginSubmitOnEnter();
+  });
+
+  $("#password").keypress(function(event) {
+    loginSubmitOnEnter();
+  });
+
   $('#loginLogIn').bind('click', function(event) {
-
-    var loginUsername = $('#username').val();
-    var loginPassword = $('#password').val();
-
-    if (0 == loginUsername.length) {
-      $('#dialogText').html('Please enter username.');
-      $.mobile.changePage( "#dialog", { role: "dialog" } );
-      return;
-    }
-
-    if (0 == loginPassword.length) {
-      $('#dialogText').html('Please enter password.');
-      $.mobile.changePage( "#dialog", { role: "dialog" } );
-      return;
-    }
-
-    $.ajax({
-      type: "POST",
-      url: "/login",
-      data: { username: loginUsername, password: loginPassword },
-      success: function(data, status) {
-        if ( (undefined !== data.error) && (0 === data.error) &&
-             (undefined !== data.errorCode) && (0 === data.errorCode) ) {
-
-          $('#username').val('');
-          $('#password').val('');
-          $.mobile.pageContainer.pagecontainer("change", "#pageDashboard");
-          $('#dashboardOptionsLink').addClass('selected');
-        }
-      },
-      error: function(XMLHttpRequest, textStatus, errorThrown) {
-          $('#dialogText').html('Wrong username or password.');
-          $.mobile.changePage( "#dialog", { role: "dialog" } );
-      },
-    });
-
+    loginSubmit();
   });
 
   $('#options').on('click','a',function(event) {
@@ -74,7 +101,10 @@ $(document).on('pagecontainerbeforeshow', function(e, ui) {
 
 $(document).on('pagecontainershow', function(e, ui) {
     var pageId = $('body').pagecontainer('getActivePage').prop('id');
-    if ('pageDashboard' === pageId) {
+    if ('pageLogin' === pageId) {
+      $('#username').focus();
+    }
+    else if ('pageDashboard' === pageId) {
       charts.chartUsageLastWeek('dashboardChartUsageLastWeek');
       charts.chartUsageLastYear('dashboardChartUsageLastYear');
     }
