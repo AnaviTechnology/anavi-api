@@ -8,12 +8,14 @@ $(document).ready(function() {
     var loginPassword = $('#password').val();
 
     if (0 == loginUsername.length) {
-      alert('Please enter username.');
+      $('#dialogText').html('Please enter username.');
+      $.mobile.changePage( "#dialog", { role: "dialog" } );
       return;
     }
 
     if (0 == loginPassword.length) {
-      alert('Please enter password.');
+      $('#dialogText').html('Please enter password.');
+      $.mobile.changePage( "#dialog", { role: "dialog" } );
       return;
     }
 
@@ -32,7 +34,8 @@ $(document).ready(function() {
         }
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
-          alert('Wrong username or password.');
+          $('#dialogText').html('Wrong username or password.');
+          $.mobile.changePage( "#dialog", { role: "dialog" } );
       },
     });
 
