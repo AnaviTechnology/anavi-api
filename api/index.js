@@ -33,6 +33,18 @@ passport.deserializeUser(function(id, cb) {
   });
 });
 
+var gatekeeper = {
+  ensureLoggedIn : function() {
+    return function(req, res, next) {
+      if (!req.isAuthenticated || !req.isAuthenticated()) {
+        res.status(401).send('401 Unauthorized');
+      }
+      else{
+        next();
+      }
+    }
+  }
+}
 
 function dashboard(req, res) {
   var data = {
@@ -116,11 +128,11 @@ function groups(req, res) {
 //API version
 var apiVersion1 = express.Router();
 
-apiVersion1.get('/dashboard', dashboard);
-apiVersion1.get('/places', places);
-apiVersion1.get('/place/:id*', place);
-apiVersion1.get('/devices', devices);
-apiVersion1.get('/groups', groups);
+apiVersion1.get('/dashboard', gatekeeper.ensureLoggedIn(), dashboard);
+apiVersion1.get('/places', gatekeeper.ensureLoggedIn(), places);
+apiVersion1.get('/place/:id*', gatekeeper.ensureLoggedIn(), place);
+apiVersion1.get('/devices', gatekeeper.ensureLoggedIn(), devices);
+apiVersion1.get('/groups', gatekeeper.ensureLoggedIn(), groups);
 
 // Routing depending the version of the API
 app.use('/api/v1', apiVersion1);
@@ -140,12 +152,6 @@ app.get('/logout',
   function(req, res){
     req.logout();
     res.redirect('/');
-  });
-
-app.get('/profile',
-  require('connect-ensure-login').ensureLoggedIn(),
-  function(req, res){
-    res.render('profile', { user: req.user });
   });
 
 var server = app.listen(3000, function () {
