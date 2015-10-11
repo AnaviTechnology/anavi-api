@@ -4,9 +4,24 @@ $(document).ready(function() {
 
   $('#loginLogIn').bind('click', function(event) {
 
-    $.post("/login", { username: $('#username').val(),
-                      password: $('#password').val() },
-      function(data, status){
+    var loginUsername = $('#username').val();
+    var loginPassword = $('#password').val();
+
+    if (0 == loginUsername.length) {
+      alert('Please enter username.');
+      return;
+    }
+
+    if (0 == loginPassword.length) {
+      alert('Please enter password.');
+      return;
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "/login",
+      data: { username: loginUsername, password: loginPassword },
+      success: function(data, status) {
         if ( (undefined !== data.error) && (0 === data.error) &&
              (undefined !== data.errorCode) && (0 === data.errorCode) ) {
 
@@ -15,6 +30,10 @@ $(document).ready(function() {
           $.mobile.pageContainer.pagecontainer("change", "#pageDashboard");
           $('#dashboardOptionsLink').addClass('selected');
         }
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+          alert('Wrong username or password.');
+      },
     });
 
   });

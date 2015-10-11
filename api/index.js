@@ -130,7 +130,7 @@ app.use('/api', apiVersion1);
 app.use('/', express.static(__dirname + '/../ui'));
 
 app.post('/login',
-  passport.authenticate('local', { failureRedirect: '/' }),
+  passport.authenticate('local'),
   function(req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({ error: 0, errorCode: 0 }));
