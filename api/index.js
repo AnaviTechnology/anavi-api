@@ -94,11 +94,13 @@ function devices(req, res) {
     devices: [
       {
         id: 1,
-        name: "foo"
+        name: "foo",
+        power: true
       },
       {
         id: 2,
-        name: "bar"
+        name: "bar",
+        power: false
       }]
   };
 

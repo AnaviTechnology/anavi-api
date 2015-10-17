@@ -50,6 +50,59 @@ function loginSubmitOnEnter() {
   }
 }
 
+function sendRequest() {
+  $.mobile.loading( 'show', {
+    text: 'Loading',
+    textVisible: true,
+    theme: 'b',
+    textonly: false,
+    html: ''
+  });
+
+  $.ajax({
+    type: "GET",
+    url: "api/devices",
+    data: {  },
+    success: function(data, status) {
+      var htmlListItems = '';
+      if (0 === data.devices.length) {
+        htmlListItems += '<li>No devices found.</li>';
+      }
+      else {
+        for (var deviceId=0; deviceId<data.devices.length; deviceId++) {
+          var device = data.devices[deviceId];
+          htmlListItems += '<li><a href="#device">';
+          htmlListItems += device.name;
+          if (true === device.power) {
+            htmlListItems += ' <span class="ui-li-count powerOn">on</span></a></li>';
+          }
+          else {
+            htmlListItems += ' <span class="ui-li-count powerOff">off</span></a></li>';
+          }
+        }
+      }
+      $('#pageDevicesList').empty();
+      $('#pageDevicesList').append(htmlListItems);
+      $('#pageDevicesList').listview('refresh');
+      $.mobile.loading('hide');
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      if (401 === XMLHttpRequest.status) {
+        $.mobile.changePage( "#pageLogin" );
+      }
+      else {
+        var errorMessage = 'Error ';
+        errorMessage += XMLHttpRequest.status+': '+XMLHttpRequest.statusText;
+        $('#pageDevicesList').empty();
+        $('#pageDevicesList').append('<li>'+errorMessage+'</li>');
+        $('#pageDevicesList').listview('refresh');
+        $.mobile.loading('hide');
+      }
+    },
+  });
+
+}
+
 $(document).ready(function() {
 
   $( "body>[data-role='panel']" ).panel().enhanceWithin();
@@ -107,6 +160,9 @@ $(document).on('pagecontainershow', function(e, ui) {
     else if ('pageDashboard' === pageId) {
       charts.chartUsageLastWeek('dashboardChartUsageLastWeek');
       charts.chartUsageLastYear('dashboardChartUsageLastYear');
+    }
+    else if ('pageDevices' === pageId) {
+      sendRequest();
     }
 });
 
