@@ -1,3 +1,7 @@
+var session = {
+  deviceId: 0
+}
+
 function loginSubmit() {
 
   var loginUsername = $('#username').val();
@@ -111,7 +115,8 @@ function loadDevicesError(XMLHttpRequest, textStatus, errorThrown) {
 }
 
 function handleClickDevices(deviceId) {
-  sendRequest('device/'+deviceId, { }, loadDeviceSuccess, loadDeviceError);
+  session.deviceId = deviceId;
+  $.mobile.changePage( "#pageDevice" );
 }
 
 function loadDeviceSuccess(data, status) {
@@ -208,6 +213,10 @@ $(document).on('pagecontainershow', function(e, ui) {
     }
     else if ('pageDevices' === pageId) {
       sendRequest('devices', {}, loadDevicesSuccess, loadDevicesError);
+    }
+    else if ('pageDevice' === pageId) {
+      sendRequest('device/'+session.deviceId, { },
+                    loadDeviceSuccess, loadDeviceError);
     }
 });
 
