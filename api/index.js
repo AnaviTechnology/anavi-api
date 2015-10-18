@@ -120,6 +120,23 @@ function device(req, res) {
   res.json(data);
 }
 
+function deviceCommand(req, res) {
+  var deviceId = req.param('id');
+  var deviceCommand = req.param('command');
+  if ('power' !== deviceCommand) {
+    res.status(501).send('501 Not Implemented');
+    return;
+  }
+  var devicePower = ('true' == req.param('key')) ? true : false;
+  //TODO: integration with MQTT 
+  var data = {
+    id: deviceId,
+    power: devicePower
+  };
+
+  res.json(data);
+}
+
 function groups(req, res) {
   var data = {
     groups: [
@@ -145,9 +162,11 @@ var apiVersion1 = express.Router();
 
 apiVersion1.get('/dashboard', gatekeeper.ensureLoggedIn(), dashboard);
 apiVersion1.get('/places', gatekeeper.ensureLoggedIn(), places);
-apiVersion1.get('/place/:id*', gatekeeper.ensureLoggedIn(), place);
+apiVersion1.get('/place/:id', gatekeeper.ensureLoggedIn(), place);
 apiVersion1.get('/devices', gatekeeper.ensureLoggedIn(), devices);
-apiVersion1.get('/device/:id*', gatekeeper.ensureLoggedIn(), device);
+apiVersion1.get('/device/:id', gatekeeper.ensureLoggedIn(), device);
+apiVersion1.get('/device/:id/:command/:key*', gatekeeper.ensureLoggedIn(), deviceCommand);
+apiVersion1.get('/device/:id/:command*', gatekeeper.ensureLoggedIn(), deviceCommand);
 apiVersion1.get('/groups', gatekeeper.ensureLoggedIn(), groups);
 
 // Routing depending the version of the API
