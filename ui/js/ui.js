@@ -78,7 +78,9 @@ function loadDevicesSuccess(data, status) {
   else {
     for (var deviceId=0; deviceId<data.devices.length; deviceId++) {
       var device = data.devices[deviceId];
-      htmlListItems += '<li><a href="#device">';
+      htmlListItems += '<li><a href="#" onclick="javascript: handleClickDevices('
+      htmlListItems += device.id;
+      htmlListItems += ');">';
       htmlListItems += device.name;
       if (true === device.power) {
         htmlListItems += ' <span class="ui-li-count powerOn">on</span></a></li>';
@@ -104,6 +106,28 @@ function loadDevicesError(XMLHttpRequest, textStatus, errorThrown) {
     $('#pageDevicesList').empty();
     $('#pageDevicesList').append('<li>'+errorMessage+'</li>');
     $('#pageDevicesList').listview('refresh');
+  }
+  $.mobile.loading('hide');
+}
+
+function handleClickDevices(deviceId) {
+  sendRequest('device/'+deviceId, { }, loadDeviceSuccess, loadDeviceError);
+}
+
+function loadDeviceSuccess(data, status) {
+  $.mobile.changePage( "#device" );
+  $.mobile.loading('hide');
+}
+
+function loadDeviceError(XMLHttpRequest, textStatus, errorThrown) {
+  if (401 === XMLHttpRequest.status) {
+    $.mobile.changePage( "#pageLogin" );
+  }
+  else {
+    //TODO: show error
+    var errorMessage = 'Error ';
+    errorMessage += XMLHttpRequest.status+': '+XMLHttpRequest.statusText;
+    console.log(errorMessage);
   }
   $.mobile.loading('hide');
 }
