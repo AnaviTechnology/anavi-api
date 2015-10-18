@@ -115,7 +115,7 @@ function handleClickDevices(deviceId) {
 }
 
 function loadDeviceSuccess(data, status) {
-  $.mobile.changePage( "#device" );
+  $.mobile.changePage( "#pageDevice" );
   $.mobile.loading('hide');
 }
 
@@ -157,7 +157,7 @@ $(document).ready(function() {
     }
   });
 
-  $( "#device" ).on( "pagecreate", function( event, ui ) {
+  $( "#pageDevice" ).on( "pagecreate", function( event, ui ) {
 
     $( "#deviceUsageLastWeek" ).on( "collapsibleexpand", function( event, ui ) {
       charts.chartUsageLastWeek('deviceChartUsageLastWeek');
