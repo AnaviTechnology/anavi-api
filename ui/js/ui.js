@@ -115,7 +115,23 @@ function handleClickDevices(deviceId) {
 }
 
 function loadDeviceSuccess(data, status) {
+  $('#pageDeviceHeaderTitle').text(data.name);
+  $('#pageDeviceTitle').text(data.type);
   $.mobile.changePage( "#pageDevice" );
+  if (true === data.power) {
+    $("#pageDevicePower").val("on").flipswitch("refresh");
+  }
+  else {
+    $("#pageDevicePower").val("off").flipswitch("refresh");
+  }
+  $('#pageDeviceListFeatures').empty();
+  for (var iter=0; iter< data.features.length; iter++) {
+    var featureItem = '<li data-icon="check"><a href="#" data-role="button">';
+    featureItem += data.features[iter];
+    featureItem += '</a></li>';
+    $('#pageDeviceListFeatures').append(featureItem);
+  }
+  $('#pageDeviceListFeatures').listview('refresh');
   $.mobile.loading('hide');
 }
 

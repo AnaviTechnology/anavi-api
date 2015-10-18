@@ -121,17 +121,17 @@
 
     <div data-role="header">
       <a data-icon="carat-l" data-iconpos="notext" data-rel="back"></a>
-      <h1>Switch A</h1>
+      <h1 id="pageDeviceHeaderTitle"></h1>
       <a href="#pageDeviceEdit" data-icon="edit" data-iconpos="notext"></a>
     </div><!-- /header -->
 
     <div data-role="content">
-      <h2>Power Switch</h2>
+      <h2 id="pageDeviceTitle"></h2>
 
       <fieldset>
         <div data-role="fieldcontain">
-          <label for="devicePower">Power:</label>
-            <select id="devicePower" data-role="flipswitch">
+          <label for="pageDevicePower">Power:</label>
+            <select id="pageDevicePower" data-role="flipswitch">
               <option value="off">Off</option>
               <option value="on">On</option>
             </select>
@@ -175,10 +175,7 @@
         <div data-role="collapsible">
           <h3>Features</h3>
 
-          <div data-role="controlgroup">
-            <a href="#" data-role="button" data-icon="check">Turn on/off</a>
-            <a href="#" data-role="button" data-icon="check">Monitor enery usage</a>
-          </div>
+          <ul id="pageDeviceListFeatures" data-role="listview" data-inset="true"></ul>
 
         </div>
 

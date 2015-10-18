@@ -112,8 +112,9 @@ function device(req, res) {
   var data = {
     id: deviceId,
     name: 'Power switch A',
+    type: 'Power Switch',
     power: true,
-    features: ["switch", "electricMeter"]
+    features: ["Turn on/off", "Еlectric meter"]
   };
 
   res.json(data);
