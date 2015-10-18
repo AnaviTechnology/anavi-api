@@ -107,6 +107,18 @@ function devices(req, res) {
   res.json(data);
 }
 
+function device(req, res) {
+  var deviceId = req.param('id');
+  var data = {
+    id: deviceId,
+    name: 'Power switch A',
+    power: true,
+    features: ["switch", "electricMeter"]
+  };
+
+  res.json(data);
+}
+
 function groups(req, res) {
   var data = {
     groups: [
@@ -134,6 +146,7 @@ apiVersion1.get('/dashboard', gatekeeper.ensureLoggedIn(), dashboard);
 apiVersion1.get('/places', gatekeeper.ensureLoggedIn(), places);
 apiVersion1.get('/place/:id*', gatekeeper.ensureLoggedIn(), place);
 apiVersion1.get('/devices', gatekeeper.ensureLoggedIn(), devices);
+apiVersion1.get('/device/:id*', gatekeeper.ensureLoggedIn(), device);
 apiVersion1.get('/groups', gatekeeper.ensureLoggedIn(), groups);
 
 // Routing depending the version of the API
