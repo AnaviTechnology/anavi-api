@@ -31,6 +31,7 @@ function loginSubmit() {
     },
     error: function(XMLHttpRequest, textStatus, errorThrown) {
         $('#dialogText').html('Wrong username or password.');
+        $('#password').val('');
         $.mobile.changePage( "#dialog", { role: "dialog" } );
     },
   });
