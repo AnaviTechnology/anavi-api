@@ -114,6 +114,17 @@ function loadDevicesError(XMLHttpRequest, textStatus, errorThrown) {
   $.mobile.loading('hide');
 }
 
+function deviceTurnOnOff() {
+  var powerState = ('on' === $('#pageDevicePower').val()) ? true : false;
+  //TODO: handle API response
+  console.log('power: '+powerState);
+  sendRequest('devicePower', { power: powerState }, function() {
+    $.mobile.loading('hide');
+  } , function() {
+    $.mobile.loading('hide');
+  });
+}
+
 function handleClickDevices(deviceId) {
   session.deviceId = deviceId;
   $.mobile.changePage( "#pageDevice" );
@@ -123,12 +134,18 @@ function loadDeviceSuccess(data, status) {
   $('#pageDeviceHeaderTitle').text(data.name);
   $('#pageDeviceTitle').text(data.type);
   $.mobile.changePage( "#pageDevice" );
+
+  $('#pageDevicePower').unbind('change');
   if (true === data.power) {
     $("#pageDevicePower").val("on").flipswitch("refresh");
   }
   else {
     $("#pageDevicePower").val("off").flipswitch("refresh");
   }
+  $('#pageDevicePower').on('change', function() {
+    deviceTurnOnOff();
+  });
+
   $('#pageDeviceListFeatures').empty();
   for (var iter=0; iter< data.features.length; iter++) {
     var featureItem = '<li data-icon="check"><a href="#" data-role="button">';
