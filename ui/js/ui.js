@@ -115,12 +115,11 @@ function loadDevicesError(XMLHttpRequest, textStatus, errorThrown) {
 }
 
 function deviceTurnOnOff() {
-  var powerState = ('on' === $('#pageDevicePower').val()) ? true : false;
-  //TODO: handle API response
-  console.log('power: '+powerState);
-  sendRequest('devicePower', { power: powerState }, function() {
+  var powerState = ('on' === $('#pageDevicePower').val()) ? 'true' : 'false';
+  sendRequest('device/'+session.deviceId+'/power/'+powerState, { }, function() {
     $.mobile.loading('hide');
   } , function() {
+    //TODO: handle API response on error
     $.mobile.loading('hide');
   });
 }

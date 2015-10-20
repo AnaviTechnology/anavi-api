@@ -12,6 +12,9 @@ app.use(require('express-session')({ secret: 'keyboard cat', resave: false, save
 app.use(passport.initialize());
 app.use(passport.session());
 
+var mqtt = require('mqtt');
+var mqttClient = mqtt.connect('mqtt://test.mosquitto.org');
+
 passport.use(new Strategy(
   function(username, password, cb) {
     db.users.findByUsername(username, function(err, user) {
@@ -128,7 +131,13 @@ function deviceCommand(req, res) {
     return;
   }
   var devicePower = ('true' == req.param('key')) ? true : false;
-  //TODO: integration with MQTT 
+
+  //Send command to the device using MQTT
+  var topic = 'device/'+deviceId;
+  var message = '{ power: '+devicePower+' }';
+  console.log('topic: '+topic+' message: '+message);
+  mqttClient.publish(topic, message );
+
   var data = {
     id: deviceId,
     power: devicePower
