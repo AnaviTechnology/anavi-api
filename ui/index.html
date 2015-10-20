@@ -17,8 +17,8 @@
     <h2>John Doe</h2>
     <ul data-role="listview" data-theme="a">
       <li data-icon="home"><a id="dashboardOptionsLink" href="#pageDashboard">Dashboard</a></li>
-      <li data-icon="location"><a href="#pagePlaces">Places</a></li>
       <li data-icon="star"><a href="#pageDevices">Devices</a></li>
+      <li data-icon="location"><a href="#pagePlaces">Places</a></li>
       <li data-icon="tag"><a href="#pageGroups">Groups</a></li>
       <li data-icon="clock"><a href="#pageRules">Rules</a></li>
       <li data-icon="gear"><a href="#pageSettings">Settings</a></li>
@@ -112,7 +112,7 @@
     </div><!-- /header -->
 
     <div data-role="content">
-      <ul id="pageDevicesList" data-role="listview" data-filter="true"></ul>
+      <ul id="pageDevicesList" data-role="listview" data-filter="true" data-filter-placeholder="Filter devices..."></ul>
     </div><!-- /content -->
 
   </div><!-- /page -->
@@ -467,11 +467,12 @@
     <div data-role="content">
 
       <fieldset>
+
         <div data-role="fieldcontain">
-          <label for="settingsTemperature">Temperature:</label>
-            <select id="settingsTemperature" data-role="flipswitch">
-              <option value="celsius">&deg;C</option>
-              <option value="fahrenheit">&deg;F</option>
+        <label for="settingsHomePage">Home page:</label>
+          <select name="settingsHomePage" id="settingsHomePage">
+            <option value="pageDashboard">Dashboard</option>
+            <option value="pageDevices">Devices</option>
           </select>
         </div>
 
