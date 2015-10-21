@@ -199,6 +199,15 @@ $(document).ready(function() {
     if ('logoutOptionsLink' !== event.target.id) {
       $(this).addClass('selected');
     }
+    else {
+      sendRequest('logout', {},
+                  function(data, status) {
+                    $.mobile.changePage( "#pageLogin" );
+                  },
+                  function(XMLHttpRequest, textStatus, errorThrown) {
+                    $.mobile.changePage( "#pageLogin" );
+                  });
+    }
   });
 
   $( "#pageDevice" ).on( "pagecreate", function( event, ui ) {
