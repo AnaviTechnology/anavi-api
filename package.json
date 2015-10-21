@@ -1,0 +1,40 @@
+{
+  "name": "jadja-node",
+  "version": "0.0.1",
+  "description": "Open source platform for IoT management",
+  "main": "app/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leon-anavi/jadja-node.git"
+  },
+  "keywords": [
+    "iot",
+    "open",
+    "mqtt"
+  ],
+  "dependencies": {
+    "mqtt": ">=1.4.3",
+    "promise": ">=7.0.1",
+    "express": ">=4.12.3",
+    "passport": ">=0.3.0",
+    "passport-local": ">=1.0.0",
+    "passport-strategy": ">=1.0.0",
+    "morgan": ">=1.6.1",
+    "cookie-parser": ">=1.4.0",
+    "body-parser": ">=1.14.1",
+    "express-session": ">=1.11.3",
+  },
+  "author": "Leon Anavi <leon@anavi.org>",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/leon-anavi/jadja-node/issues"
+  },
+  "homepage": "https://github.com/leon-anavi/jadja-node#readme",
+  "preferGlobal": "true",
+  "bin": {
+    "jadja-node": "api/index.js"
+  }
+}
