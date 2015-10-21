@@ -166,6 +166,15 @@ function groups(req, res) {
   res.json(data);
 }
 
+function userLogout(req, res) {
+  req.logout();
+  var data = {
+                errorCode: 0,
+                errorMessage: ''
+            };
+  res.json(data);
+}
+
 //API version
 var apiVersion1 = express.Router();
 
@@ -177,6 +186,7 @@ apiVersion1.get('/device/:id', gatekeeper.ensureLoggedIn(), device);
 apiVersion1.get('/device/:id/:command/:key*', gatekeeper.ensureLoggedIn(), deviceCommand);
 apiVersion1.get('/device/:id/:command*', gatekeeper.ensureLoggedIn(), deviceCommand);
 apiVersion1.get('/groups', gatekeeper.ensureLoggedIn(), groups);
+apiVersion1.get('/logout', gatekeeper.ensureLoggedIn(), userLogout);
 
 // Routing depending the version of the API
 app.use('/api/v1', apiVersion1);
@@ -190,12 +200,6 @@ app.post('/login',
   function(req, res) {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({ error: 0, errorCode: 0 }));
-  });
-
-app.get('/logout',
-  function(req, res){
-    req.logout();
-    res.redirect('/');
   });
 
 var server = app.listen(3000, function () {
