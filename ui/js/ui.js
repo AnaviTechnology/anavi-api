@@ -1,5 +1,6 @@
 var session = {
-  deviceId: 0
+  deviceId: 0,
+  homePage: 'pageDevices'
 }
 
 function loginSubmit() {
@@ -29,7 +30,13 @@ function loginSubmit() {
 
         $('#username').val('');
         $('#password').val('');
-        $.mobile.pageContainer.pagecontainer("change", "#pageDashboard");
+
+        var goToPage = '#'+session.homePage;
+        if (0 === $(goToPage).length) {
+          goToPage = '#pageDashboard';
+        }
+
+        $.mobile.pageContainer.pagecontainer("change", goToPage);
         $('#dashboardOptionsLink').addClass('selected');
       }
     },
