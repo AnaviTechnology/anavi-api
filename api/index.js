@@ -175,6 +175,14 @@ function userLogout(req, res) {
   res.json(data);
 }
 
+function loginSuccess(req, res) {
+  var data = {
+    name: req.user.displayName,
+    surname: req.user.displaySurname
+  }
+  res.json(data);
+}
+
 //API version
 var apiVersion1 = express.Router();
 
@@ -188,12 +196,7 @@ apiVersion1.get('/device/:id/:command*', gatekeeper.ensureLoggedIn(), deviceComm
 apiVersion1.get('/groups', gatekeeper.ensureLoggedIn(), groups);
 apiVersion1.get('/logout', gatekeeper.ensureLoggedIn(), userLogout);
 
-apiVersion1.post('/login',
-  passport.authenticate('local'),
-  function(req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({ error: 0, errorCode: 0 }));
-  });
+apiVersion1.post('/login', passport.authenticate('local'), loginSuccess);
 
 // Routing depending the version of the API
 app.use('/api/v1', apiVersion1);
