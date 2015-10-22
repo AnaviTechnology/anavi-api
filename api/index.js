@@ -188,6 +188,13 @@ apiVersion1.get('/device/:id/:command*', gatekeeper.ensureLoggedIn(), deviceComm
 apiVersion1.get('/groups', gatekeeper.ensureLoggedIn(), groups);
 apiVersion1.get('/logout', gatekeeper.ensureLoggedIn(), userLogout);
 
+apiVersion1.post('/login',
+  passport.authenticate('local'),
+  function(req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({ error: 0, errorCode: 0 }));
+  });
+
 // Routing depending the version of the API
 app.use('/api/v1', apiVersion1);
 // Set the default version to latest.
@@ -195,12 +202,6 @@ app.use('/api', apiVersion1);
 //serve static HTML5 files
 app.use('/', express.static(__dirname + '/../ui'));
 
-app.post('/login',
-  passport.authenticate('local'),
-  function(req, res) {
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({ error: 0, errorCode: 0 }));
-  });
 
 var server = app.listen(3000, function () {
   var host = server.address().address;
