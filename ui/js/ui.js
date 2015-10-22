@@ -5,20 +5,19 @@ var session = {
 
 function loginSuccess(data, status) {
   $.mobile.loading('hide');
-  if ( (undefined !== data.error) && (0 === data.error) &&
-       (undefined !== data.errorCode) && (0 === data.errorCode) ) {
 
-    $('#username').val('');
-    $('#password').val('');
+  $("#optionsUsername").text(data.name + ' ' + data.surname);
 
-    var goToPage = '#'+session.homePage;
-    if (0 === $(goToPage).length) {
-      goToPage = '#pageDashboard';
-    }
+  $('#username').val('');
+  $('#password').val('');
 
-    $.mobile.pageContainer.pagecontainer("change", goToPage);
-    $('#dashboardOptionsLink').addClass('selected');
+  var goToPage = '#'+session.homePage;
+  if (0 === $(goToPage).length) {
+    goToPage = '#pageDashboard';
   }
+
+  $.mobile.pageContainer.pagecontainer("change", goToPage);
+  $('#dashboardOptionsLink').addClass('selected');
 }
 
 function loginError(XMLHttpRequest, textStatus, errorThrown) {
