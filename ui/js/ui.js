@@ -3,6 +3,31 @@ var session = {
   homePage: 'pageDevices'
 }
 
+function loginSuccess(data, status) {
+  $.mobile.loading('hide');
+  if ( (undefined !== data.error) && (0 === data.error) &&
+       (undefined !== data.errorCode) && (0 === data.errorCode) ) {
+
+    $('#username').val('');
+    $('#password').val('');
+
+    var goToPage = '#'+session.homePage;
+    if (0 === $(goToPage).length) {
+      goToPage = '#pageDashboard';
+    }
+
+    $.mobile.pageContainer.pagecontainer("change", goToPage);
+    $('#dashboardOptionsLink').addClass('selected');
+  }
+}
+
+function loginError(XMLHttpRequest, textStatus, errorThrown) {
+  $.mobile.loading('hide');
+  $('#dialogText').html('Wrong username or password.');
+  $('#password').val('');
+  $.mobile.changePage( "#dialog", { role: "dialog" } );
+}
+
 function loginSubmit() {
 
   var loginUsername = $('#username').val();
@@ -20,32 +45,9 @@ function loginSubmit() {
     return;
   }
 
-  $.ajax({
-    type: "POST",
-    url: "/login",
-    data: { username: loginUsername, password: loginPassword },
-    success: function(data, status) {
-      if ( (undefined !== data.error) && (0 === data.error) &&
-           (undefined !== data.errorCode) && (0 === data.errorCode) ) {
+  sendRequest('/login', { username: loginUsername, password: loginPassword },
+  loginSuccess, loginError, 'POST');
 
-        $('#username').val('');
-        $('#password').val('');
-
-        var goToPage = '#'+session.homePage;
-        if (0 === $(goToPage).length) {
-          goToPage = '#pageDashboard';
-        }
-
-        $.mobile.pageContainer.pagecontainer("change", goToPage);
-        $('#dashboardOptionsLink').addClass('selected');
-      }
-    },
-    error: function(XMLHttpRequest, textStatus, errorThrown) {
-        $('#dialogText').html('Wrong username or password.');
-        $('#password').val('');
-        $.mobile.changePage( "#dialog", { role: "dialog" } );
-    },
-  });
 }
 
 function loginSubmitOnEnter() {
@@ -62,7 +64,7 @@ function loginSubmitOnEnter() {
   }
 }
 
-function sendRequest(api, options, callbackSuccess, callbackError) {
+function sendRequest(api, options, callbackSuccess, callbackError, type) {
   $.mobile.loading( 'show', {
     text: 'Loading',
     textVisible: true,
@@ -71,8 +73,10 @@ function sendRequest(api, options, callbackSuccess, callbackError) {
     html: ''
   });
 
+  var requestType = ( (undefined === type) || ("POST" != type) ) ? "GET" : "POST";
+
   $.ajax({
-    type: "GET",
+    type: requestType,
     url: 'api/'+api,
     data: options,
     success: callbackSuccess,
