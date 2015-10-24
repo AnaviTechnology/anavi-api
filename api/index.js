@@ -175,19 +175,27 @@ function userLogout(req, res) {
   res.json(data);
 }
 
+function retrieveSettings() {
+  var settings = {
+    home: "pageDevices"
+  }
+  return settings;
+}
+
 function loginSuccess(req, res) {
+  var settingsData = retrieveSettings();
   var data = {
-    name: req.user.displayName,
-    surname: req.user.displaySurname
+    user: {
+      name: req.user.displayName,
+      surname: req.user.displaySurname
+    },
+    settings: settingsData
   }
   res.json(data);
 }
 
 function settings(req, res) {
-  var data = {
-    home: "pageDevices"
-  }
-  res.json(data);
+  res.json(retrieveSettings());
 }
 
 //API version
