@@ -184,7 +184,6 @@ function loginSuccess(req, res) {
 }
 
 function settings(req, res) {
-  var userId = req.param('id');
   var data = {
     home: "pageDevices"
   }
@@ -202,7 +201,7 @@ apiVersion1.get('/device/:id', gatekeeper.ensureLoggedIn(), device);
 apiVersion1.get('/device/:id/:command/:key*', gatekeeper.ensureLoggedIn(), deviceCommand);
 apiVersion1.get('/device/:id/:command*', gatekeeper.ensureLoggedIn(), deviceCommand);
 apiVersion1.get('/groups', gatekeeper.ensureLoggedIn(), groups);
-apiVersion1.get('/settings/:id', gatekeeper.ensureLoggedIn(), settings);
+apiVersion1.get('/settings', gatekeeper.ensureLoggedIn(), settings);
 apiVersion1.get('/logout', gatekeeper.ensureLoggedIn(), userLogout);
 
 apiVersion1.post('/login', passport.authenticate('local'), loginSuccess);
