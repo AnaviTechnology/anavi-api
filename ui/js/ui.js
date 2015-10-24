@@ -1,4 +1,5 @@
 var session = {
+  userId: 0,
   deviceId: 0,
   homePage: 'pageDevices'
 }
@@ -179,6 +180,24 @@ function loadDeviceError(XMLHttpRequest, textStatus, errorThrown) {
   $.mobile.loading('hide');
 }
 
+function loadSettingsSuccess(data, status) {
+  $('#settingsHomePage').val(data.home).selectmenu('refresh');
+  $.mobile.loading('hide');
+}
+
+function loadSettingsError(XMLHttpRequest, textStatus, errorThrown) {
+  if (401 === XMLHttpRequest.status) {
+    $.mobile.changePage( "#pageLogin" );
+  }
+  else {
+    //TODO: show error
+    var errorMessage = 'Error ';
+    errorMessage += XMLHttpRequest.status+': '+XMLHttpRequest.statusText;
+    console.log(errorMessage);
+  }
+  $.mobile.loading('hide');
+}
+
 $(document).ready(function() {
 
   $( "body>[data-role='panel']" ).panel().enhanceWithin();
@@ -252,6 +271,10 @@ $(document).on('pagecontainershow', function(e, ui) {
     else if ('pageDevice' === pageId) {
       sendRequest('device/'+session.deviceId, { },
                     loadDeviceSuccess, loadDeviceError);
+    }
+    else if ('pageSettings' === pageId) {
+      sendRequest('settings', { },
+                    loadSettingsSuccess, loadSettingsError);
     }
 });
 
