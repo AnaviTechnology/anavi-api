@@ -9,8 +9,10 @@ app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+var bodyParser = require("body-parser");
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 var mqtt = require('mqtt');
 var mqttClient = mqtt.connect('mqtt://test.mosquitto.org');
@@ -194,7 +196,14 @@ function loginSuccess(req, res) {
   res.json(data);
 }
 
-function settings(req, res) {
+function settingsLoad(req, res) {
+  res.json(retrieveSettings());
+}
+
+function settingsSave(req, res) {
+  var homePage = req.body.settingsHomePage;
+  //TODO: save home page
+  console.log('Save home page: '+homePage);
   res.json(retrieveSettings());
 }
 
@@ -209,7 +218,8 @@ apiVersion1.get('/device/:id', gatekeeper.ensureLoggedIn(), device);
 apiVersion1.get('/device/:id/:command/:key*', gatekeeper.ensureLoggedIn(), deviceCommand);
 apiVersion1.get('/device/:id/:command*', gatekeeper.ensureLoggedIn(), deviceCommand);
 apiVersion1.get('/groups', gatekeeper.ensureLoggedIn(), groups);
-apiVersion1.get('/settings', gatekeeper.ensureLoggedIn(), settings);
+apiVersion1.get('/settings', gatekeeper.ensureLoggedIn(), settingsLoad);
+apiVersion1.post('/settings/save', gatekeeper.ensureLoggedIn(), settingsSave);
 apiVersion1.get('/logout', gatekeeper.ensureLoggedIn(), userLogout);
 
 apiVersion1.post('/login', passport.authenticate('local'), loginSuccess);
