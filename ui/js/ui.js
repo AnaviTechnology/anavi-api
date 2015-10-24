@@ -7,17 +7,21 @@ var session = {
 function loginSuccess(data, status) {
   $.mobile.loading('hide');
 
-  $("#optionsUsername").text(data.name + ' ' + data.surname);
+  if ( (undefined !== data.user.name) && (undefined !== data.user.surname) ) {
+    $("#optionsUsername").text(data.user.name + ' ' + data.user.surname);
+  }
 
   $('#username').val('');
   $('#password').val('');
 
-  var goToPage = '#'+session.homePage;
-  if (0 === $(goToPage).length) {
-    goToPage = '#pageDashboard';
+  if ( (undefined === data.settings.home) || (0 === $('#'+data.settings.home).length) ) {
+    session.homePage = 'pageDashboard';
+  }
+  else {
+    session.homePage = data.settings.home;
   }
 
-  $.mobile.pageContainer.pagecontainer("change", goToPage);
+  $.mobile.pageContainer.pagecontainer("change", '#'+session.homePage);
   $('#dashboardOptionsLink').addClass('selected');
 }
 
