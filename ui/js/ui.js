@@ -202,6 +202,11 @@ function loadSettingsError(XMLHttpRequest, textStatus, errorThrown) {
   $.mobile.loading('hide');
 }
 
+function settingsSaved(data, status) {
+  $.mobile.loading('hide');
+  $.mobile.changePage( '#'+session.homePage );
+}
+
 $(document).ready(function() {
 
   $( "body>[data-role='panel']" ).panel().enhanceWithin();
@@ -218,6 +223,12 @@ $(document).ready(function() {
 
   $('#loginLogIn').bind('click', function(event) {
     loginSubmit();
+  });
+
+  $('#settingsSave').bind('click', function(event) {
+    var settingsHome = $('#settingsHomePage').val();
+    sendRequest('settings/save', { settingsHomePage: settingsHome },
+    settingsSaved, loadSettingsError, 'POST');
   });
 
   $('#options').on('click','a',function(event) {
