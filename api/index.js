@@ -7,7 +7,7 @@ var db = require('./db');
 var fs = require('fs');
 var nconf = require('nconf');
 
-var configFile = './config.json';
+var configFile = __dirname+'/config.json';
 try {
   configFile = argConfigFile();
 }
@@ -16,6 +16,7 @@ catch (error) {
 }
 try {
   fs.statSync(configFile);
+  nconf.file(configFile);
   if (undefined === nconf.get('mqtt:broker')) {
     throw "MQTT broker not defined";
   }
