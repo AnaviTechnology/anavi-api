@@ -1,0 +1,11 @@
+{
+  "database": {
+    "host": "",
+    "port": 0,
+    "user": "",
+    "password": ""
+  },
+  "mqtt": {
+      "broker": "test.mosquitto.org"
+  }
+}

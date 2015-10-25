@@ -4,6 +4,31 @@ var app = express();
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
 var db = require('./db');
+var fs = require('fs');
+var nconf = require('nconf');
+
+var configFile = './config.json';
+try {
+  configFile = argConfigFile();
+}
+catch (error) {
+  console.log(error.message);
+}
+try {
+  fs.statSync(configFile);
+  if (undefined === nconf.get('mqtt:broker')) {
+    throw "MQTT broker not defined";
+  }
+} catch(error) {
+  if (error && error.code && ('ENOENT' === error.code) ) {
+    console.log('Unable to open configuration file: '+configFile);
+  }
+  else if (typeof error === 'string') {
+    console.log(error);
+  }
+  process.exit(1);
+}
+nconf.file(configFile);
 
 app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
@@ -15,7 +40,7 @@ app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 var mqtt = require('mqtt');
-var mqttClient = mqtt.connect('mqtt://test.mosquitto.org');
+var mqttClient = mqtt.connect('mqtt://'+nconf.get('mqtt:broker'));
 
 passport.use(new Strategy(
   function(username, password, cb) {
@@ -49,6 +74,20 @@ var gatekeeper = {
       }
     }
   }
+}
+
+function argConfigFile() {
+  for(var iter=0; iter < process.argv.length; iter++) {
+    if ( ("-c" === process.argv[iter]) || ("--config" === process.argv[iter]) ) {
+      var next = iter+1;
+      if ( (next <= process.argv.length) && (undefined !== process.argv[next]) ) {
+        return process.argv[next];
+      }
+      break;
+    }
+  }
+  //Configuration files has not been found so throw an exception
+  throw new Error('Using the default configuration file.');
 }
 
 function dashboard(req, res) {
