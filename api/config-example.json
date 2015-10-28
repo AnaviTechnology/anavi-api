@@ -3,7 +3,8 @@
     "host": "",
     "port": 0,
     "user": "",
-    "password": ""
+    "password": "",
+    "name": "iot"
   },
   "mqtt": {
       "broker": "test.mosquitto.org"
