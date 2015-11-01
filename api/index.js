@@ -176,7 +176,7 @@ function deviceCommand(req, res) {
 
   //Send command to the device using MQTT
   var topic = 'device/'+deviceId;
-  var message = '{ power: '+devicePower+' }';
+  var message = '{ "power": '+devicePower+' }';
   console.log('topic: '+topic+' message: '+message);
   mqttClient.publish(topic, message );
 
