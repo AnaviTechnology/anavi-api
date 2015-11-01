@@ -34,7 +34,7 @@ nconf.file(configFile);
 app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
-app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+app.use(require('express-session')({ secret: 'rabbit iot', resave: false, saveUninitialized: false }));
 var bodyParser = require("body-parser");
 app.use(passport.initialize());
 app.use(passport.session());
@@ -62,6 +62,7 @@ passport.use(new Strategy(
       if (0 === rows.length) { return cb(null, false); }
       var user = {
                   id: rows[0].user_email,
+                  userId: rows[0].user_id,
                   username: username,
                   password: '',
                   displayName: rows[0].user_display_name,
@@ -249,34 +250,50 @@ function userLogout(req, res) {
   res.json(data);
 }
 
-function retrieveSettings() {
+function retrieveSettings(userId, callback) {
+  //default values
   var settings = {
     home: "pageDevices"
   }
-  return settings;
+
+  var sql = 'SELECT settings_type, settings_value ';
+  sql += 'FROM settings WHERE settings_user_id = ?';
+
+  databaseConnection.query(sql, [userId], function(err, rows, fields) {
+    if (err) { return callback(settings); }
+    for (var index=0; index<rows.length; index++) {
+      settings[rows[index].settings_type] = rows[index].settings_value;
+    }
+    return callback(settings);
+  });
 }
 
 function loginSuccess(req, res) {
-  var settingsData = retrieveSettings();
-  var data = {
-    user: {
-      name: req.user.displayName,
-      surname: req.user.displaySurname
-    },
-    settings: settingsData
-  }
-  res.json(data);
+  retrieveSettings(req.user.userId, function(settingsData) {
+    var data = {
+      user: {
+        name: req.user.displayName,
+        surname: req.user.displaySurname
+      },
+      settings: settingsData
+    }
+    res.json(data);
+  });
 }
 
 function settingsLoad(req, res) {
-  res.json(retrieveSettings());
+  retrieveSettings(req.user.id, function(settingsData) {
+    res.json(settingsData);
+  });
 }
 
 function settingsSave(req, res) {
   var homePage = req.body.settingsHomePage;
   //TODO: save home page
   console.log('Save home page: '+homePage);
-  res.json(retrieveSettings());
+  retrieveSettings(req.user.id, function(settingsData) {
+    res.json(settingsData);
+  });
 }
 
 //API version

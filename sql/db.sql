@@ -39,6 +39,17 @@ CREATE TABLE IF NOT EXISTS `organizations_users` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `settings`
+--
+
+CREATE TABLE IF NOT EXISTS `settings` (
+  `settings_id` int(20) NOT NULL,
+  `settings_user_id` int(12) NOT NULL,
+  `settings_type` enum('home') COLLATE utf8_unicode_ci NOT NULL,
+  `settings_value` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
 -- Table structure for table `users`
 --
 
@@ -70,6 +81,13 @@ ALTER TABLE `organizations_users`
   ADD UNIQUE KEY `ou_organization_id` (`ou_organization_id`,`ou_user_id`);
 
 --
+-- Indexes for table `settings`
+--
+ALTER TABLE `settings`
+  ADD PRIMARY KEY (`settings_id`),
+  ADD UNIQUE KEY `settings_user_id` (`settings_user_id`,`settings_type`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -91,6 +109,13 @@ ALTER TABLE `organizations`
 --
 ALTER TABLE `organizations_users`
   MODIFY `ou_id` int(12) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `settings`
+--
+ALTER TABLE `settings`
+  MODIFY `settings_id` int(20) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
