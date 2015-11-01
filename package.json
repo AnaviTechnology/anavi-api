@@ -1,14 +1,14 @@
 {
-  "name": "jadja-node",
+  "name": "rabbitpi-api",
   "version": "0.0.1",
-  "description": "Open source platform for IoT management",
+  "description": "Free and open source IoT platform",
   "main": "app/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/leon-anavi/jadja-node.git"
+    "url": "git+https://github.com/RabbitPi/rabbitpi-api.git"
   },
   "keywords": [
     "iot",
@@ -32,11 +32,11 @@
   "author": "Leon Anavi <leon@anavi.org>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/leon-anavi/jadja-node/issues"
+    "url": "https://github.com/RabbitPi/rabbitpi-api/issues"
   },
-  "homepage": "https://github.com/leon-anavi/jadja-node#readme",
+  "homepage": "https://github.com/RabbitPi/rabbitpi-api#readme",
   "preferGlobal": "true",
   "bin": {
-    "jadja-node": "api/index.js"
+    "rabbitpi-api": "api/index.js"
   }
 }
