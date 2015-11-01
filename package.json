@@ -26,6 +26,7 @@
     "cookie-parser": ">=1.4.0",
     "body-parser": ">=1.14.1",
     "express-session": ">=1.11.3",
+    "nconf": ">=0.8.2",
     "mysql": ">=2.9.0"
   },
   "author": "Leon Anavi <leon@anavi.org>",
