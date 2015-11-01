@@ -10,8 +10,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `iot`
 --
-CREATE DATABASE IF NOT EXISTS `iot` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-USE `iot`;
+CREATE DATABASE IF NOT EXISTS `rabbitpi` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+USE `rabbitpi`;
 
 -- --------------------------------------------------------
 
