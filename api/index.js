@@ -3,9 +3,9 @@ var app = express();
 
 var passport = require('passport');
 var Strategy = require('passport-local').Strategy;
-var db = require('./db');
 var fs = require('fs');
 var nconf = require('nconf');
+var mysql = require('mysql');
 
 var configFile = __dirname+'/config.json';
 try {
@@ -43,12 +43,31 @@ app.use(bodyParser.urlencoded({ extended: false }));
 var mqtt = require('mqtt');
 var mqttClient = mqtt.connect('mqtt://'+nconf.get('mqtt:broker'));
 
+var databaseConnection = mysql.createConnection({
+  host     : nconf.get('database:host'),
+  user     : nconf.get('database:user'),
+  password : nconf.get('database:password'),
+  database : nconf.get('database:name')
+});
+
 passport.use(new Strategy(
   function(username, password, cb) {
-    db.users.findByUsername(username, function(err, user) {
+
+    var sql = 'SELECT user_id, user_email, user_display_name, ';
+    sql += 'user_display_surname FROM users ';
+    sql += 'WHERE user_username = ? AND user_password = SHA1( ? ) LIMIT 1;';
+
+    databaseConnection.query(sql, [username, password], function(err, rows, fields) {
       if (err) { return cb(err); }
-      if (!user) { return cb(null, false); }
-      if (user.password != password) { return cb(null, false); }
+      if (0 === rows.length) { return cb(null, false); }
+      var user = {
+                  id: rows[0].user_email,
+                  username: username,
+                  password: '',
+                  displayName: rows[0].user_display_name,
+                  displaySurname: rows[0].user_display_surname,
+                  emails: [ { value: rows[0].user_email } ]
+      }
       return cb(null, user);
     });
 }));
@@ -58,9 +77,22 @@ passport.serializeUser(function(user, cb) {
 });
 
 passport.deserializeUser(function(id, cb) {
-  db.users.findById(id, function (err, user) {
+
+  var sql = 'SELECT user_id, user_username, user_display_name, ';
+  sql += 'user_display_surname FROM users WHERE user_email = ? LIMIT 1;';
+
+  databaseConnection.query(sql, [id], function(err, rows, fields) {
     if (err) { return cb(err); }
-    cb(null, user);
+    if (0 === rows.length) { return cb(null, false); }
+    var user = {
+                id: rows[0].user_id,
+                username: rows[0].user_username,
+                password: '',
+                displayName: rows[0].user_display_name,
+                displaySurname: rows[0].user_display_surname,
+                emails: [ { value: id } ]
+    }
+    return cb(null, user);
   });
 });
 
@@ -278,3 +310,22 @@ var server = app.listen(3000, function () {
 
   console.log('App listening at http://%s:%s', host, port);
 });
+
+//so the program will not close instantly
+process.stdin.resume();
+
+function exitHandler(options, err) {
+  databaseConnection.end();
+  if (options.cleanup) console.log('database closed.');
+  if (err) console.log(err.stack);
+  if (options.exit) process.exit();
+}
+
+//do something when app is closing
+process.on('exit', exitHandler.bind(null,{cleanup:true}));
+
+//catches ctrl+c event
+process.on('SIGINT', exitHandler.bind(null, {exit:true}));
+
+//catches uncaught exceptions
+process.on('uncaughtException', exitHandler.bind(null, {exit:true}));

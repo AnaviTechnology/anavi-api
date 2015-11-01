@@ -1,10 +1,9 @@
 {
   "database": {
-    "host": "",
-    "port": 0,
-    "user": "",
+    "host": "localhost",
+    "user": "root",
     "password": "",
-    "name": "iot"
+    "name": "rabbitpi"
   },
   "mqtt": {
       "broker": "test.mosquitto.org"
