@@ -1,16 +1,19 @@
-# jadja-node
+# Rabbit Pi API
+
+Free and open source software and hardware IoT platform with HTML5 UI, Node.js HTTP API and MQTT.
 
 ## Overview
 
-HTT API and a simple web interface for IoT which use MQTT to communicate between each other
+HTTP API and a simple web interface for IoT which use MQTT to communicate between each other
 
 ## Getting Started
 
 * Install the web application:
 
 ```bash
-$ git clone git@github.com:leon-anavi/jadja-node.git
-$ cd jadja-node
+$ git clone git@github.com:RabbitPi/rabbitpi-api.git
+$ cd rabbitpi-api
+$ git clone git@github.com:RabbitPi/rabbitpi-ui.git ui
 $ npm install
 ```
 
