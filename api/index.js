@@ -268,6 +268,17 @@ function retrieveSettings(userId, callback) {
   });
 }
 
+function saveSettings(userId, data, callback) {
+
+  var sql = 'REPLACE INTO settings ';
+  sql += '(settings_user_id, settings_type, settings_value) VALUES ';
+  sql += '(?, ?, ?)';
+
+  databaseConnection.query(sql, [userId, 'home', data.settingsHomePage], function(err, rows, fields) {
+    return callback(userId);
+  });
+}
+
 function loginSuccess(req, res) {
   retrieveSettings(req.user.userId, function(settingsData) {
     var data = {
@@ -288,11 +299,10 @@ function settingsLoad(req, res) {
 }
 
 function settingsSave(req, res) {
-  var homePage = req.body.settingsHomePage;
-  //TODO: save home page
-  console.log('Save home page: '+homePage);
-  retrieveSettings(req.user.id, function(settingsData) {
-    res.json(settingsData);
+  saveSettings(req.user.id, req.body, function(userId) {
+    retrieveSettings(req.user.id, function(settingsData) {
+      res.json(settingsData);
+    });
   });
 }
 
