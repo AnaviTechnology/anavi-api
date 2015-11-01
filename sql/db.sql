@@ -16,6 +16,29 @@ USE `rabbitpi`;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `organizations`
+--
+
+CREATE TABLE IF NOT EXISTS `organizations` (
+  `organization_id` int(6) NOT NULL,
+  `organization_name` varchar(40) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `organizations_users`
+--
+
+CREATE TABLE IF NOT EXISTS `organizations_users` (
+  `ou_id` int(12) NOT NULL,
+  `ou_organization_id` int(6) NOT NULL,
+  `ou_user_id` int(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -33,6 +56,20 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 --
+-- Indexes for table `organizations`
+--
+ALTER TABLE `organizations`
+  ADD PRIMARY KEY (`organization_id`),
+  ADD UNIQUE KEY `organization_name` (`organization_name`);
+
+--
+-- Indexes for table `organizations_users`
+--
+ALTER TABLE `organizations_users`
+  ADD PRIMARY KEY (`ou_id`),
+  ADD UNIQUE KEY `ou_organization_id` (`ou_organization_id`,`ou_user_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -44,6 +81,16 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for dumped tables
 --
 
+--
+-- AUTO_INCREMENT for table `organizations`
+--
+ALTER TABLE `organizations`
+  MODIFY `organization_id` int(6) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `organizations_users`
+--
+ALTER TABLE `organizations_users`
+  MODIFY `ou_id` int(12) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`
 --
