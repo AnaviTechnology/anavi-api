@@ -15,6 +15,7 @@ $ git clone git@github.com:RabbitPi/rabbitpi-api.git
 $ cd rabbitpi-api
 $ git clone git@github.com:RabbitPi/rabbitpi-ui.git ui
 $ npm install
+$ cp api/config-example.json api/config.json
 ```
 
 * Start the server:
