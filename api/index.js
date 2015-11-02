@@ -279,7 +279,23 @@ function saveSettings(userId, data, callback) {
   });
 }
 
+function organizationsFind(userId, callback) {
+  var sql = 'SELECT organization_name FROM organizations_users ';
+  sql += 'LEFT JOIN organizations ON organization_id = ou_organization_id ';
+  sql += 'WHERE `ou_user_id` = ?';
+
+  databaseConnection.query(sql, [userId], function(err, rows, fields) {
+    var organizations = [];
+    if (err) { return callback(organizations); }
+    for (var index=0; index<rows.length; index++) {
+      organizations.push(rows[index].organization_name);
+    }
+    return callback(organizations);
+  });
+}
+
 function loginSuccess(req, res) {
+  //Retrieve user's settings and organizations
   retrieveSettings(req.user.userId, function(settingsData) {
     var data = {
       user: {
@@ -288,7 +304,12 @@ function loginSuccess(req, res) {
       },
       settings: settingsData
     }
-    res.json(data);
+
+    organizationsFind(req.user.userId, function(organizations) {
+      data.organizations = organizations;
+      res.json(data);
+    });
+
   });
 }
 
