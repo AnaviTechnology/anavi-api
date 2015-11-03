@@ -227,7 +227,7 @@ function deviceCommand(req, res) {
     res.status(501).send('501 Not Implemented');
     return;
   }
-  var devicePower = ('true' == req.param('key')) ? true : false;
+  var devicePower = ('true' == req.param('key'));
 
   //Send command to the device using MQTT
   var topic = 'device/'+deviceId;
