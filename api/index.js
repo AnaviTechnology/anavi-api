@@ -168,6 +168,17 @@ function place(req, res) {
 }
 
 function devices(req, res) {
+
+  //Retieve current values for devices in an organizations
+  var sql = 'SELECT device_id, device_name, feature_name, dp_property ';
+  sql += 'FROM organizations_devices ';
+  sql += 'LEFT JOIN devices ON device_id = od_device_id ';
+  sql += 'LEFT JOIN device_type_features ON dtf_type_id = devices.device_type_id ';
+  sql += 'LEFT JOIN features ON dtf_feature_id = feature_id ';
+  sql += 'LEFT JOIN device_properties ON device_id = dp_device_id AND feature_id = dp_feature_id ';
+  sql += 'LEFT JOIN organizations ON organization_id = od_organization_id ';
+  sql += 'WHERE organization_name = ?; ';
+
   var data = {
     devices: [
       {
