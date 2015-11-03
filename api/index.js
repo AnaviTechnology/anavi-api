@@ -176,24 +176,35 @@ function devices(req, res) {
   sql += 'LEFT JOIN device_type_features ON dtf_type_id = devices.device_type_id ';
   sql += 'LEFT JOIN features ON dtf_feature_id = feature_id ';
   sql += 'LEFT JOIN device_properties ON device_id = dp_device_id AND feature_id = dp_feature_id ';
-  sql += 'LEFT JOIN organizations ON organization_id = od_organization_id ';
-  sql += 'WHERE organization_name = ?; ';
+  sql += 'LEFT JOIN organizations_users ON od_organization_id = ou_organization_id  ';
+  sql += 'WHERE ou_user_id = ?; ';
 
-  var data = {
-    devices: [
-      {
-        id: 1,
-        name: "foo",
-        power: true
-      },
-      {
-        id: 2,
-        name: "bar",
-        power: false
-      }]
-  };
+  databaseConnection.query(sql, [req.user.id], function(err, rows, fields) {
 
-  res.json(data);
+    //Create array of objects
+    var devices = Array();
+    for (var index=0; index<rows.length; index++) {
+      var row = rows[index];
+      if (typeof devices[row['device_id']] !== 'object') {
+        //Each device is represented as an object
+        devices[row['device_id']] = Object();
+        devices[row['device_id']].id = row['device_id'];
+        devices[row['device_id']].name = row['device_name'];
+      }
+      devices[row['device_id']][row['feature_name']] = row['dp_property'];
+    }
+
+    var data = {
+      devices: []
+    }
+
+    //Convert associative array to numeric array
+    devices.forEach(function(device) {
+      data.devices.push(device);
+    });
+    //Serialize data and provide HTTP response
+    res.json(data);
+  });
 }
 
 function device(req, res) {
