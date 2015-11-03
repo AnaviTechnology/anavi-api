@@ -1,28 +1,10 @@
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
--- Database: `iot`
+-- Database: `rabbitpi`
 --
 CREATE DATABASE IF NOT EXISTS `rabbitpi` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 USE `rabbitpi`;
 
 -- --------------------------------------------------------
-
--- phpMyAdmin SQL Dump
--- version 4.4.13.1deb1
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Nov 02, 2015 at 01:27 AM
--- Server version: 5.6.27-0ubuntu1
--- PHP Version: 5.6.11-1ubuntu3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -47,6 +29,19 @@ CREATE TABLE IF NOT EXISTS `devices` (
   `device_id` int(20) NOT NULL,
   `device_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `device_type_id` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `device_properties`
+--
+
+CREATE TABLE IF NOT EXISTS `device_properties` (
+  `dp_id` int(20) NOT NULL,
+  `dp_device_id` int(11) NOT NULL,
+  `dp_feature_id` int(11) NOT NULL,
+  `dp_property` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -159,6 +154,13 @@ ALTER TABLE `devices`
   ADD UNIQUE KEY `device_name` (`device_name`);
 
 --
+-- Indexes for table `device_properties`
+--
+ALTER TABLE `device_properties`
+  ADD PRIMARY KEY (`dp_id`),
+  ADD UNIQUE KEY `dp_device_id` (`dp_device_id`,`dp_feature_id`);
+
+--
 -- Indexes for table `device_types`
 --
 ALTER TABLE `device_types`
@@ -225,6 +227,11 @@ ALTER TABLE `users`
 --
 ALTER TABLE `devices`
   MODIFY `device_id` int(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `device_properties`
+--
+ALTER TABLE `device_properties`
+  MODIFY `dp_id` int(20) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `device_types`
 --
