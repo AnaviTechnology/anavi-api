@@ -209,15 +209,40 @@ function devices(req, res) {
 
 function device(req, res) {
   var deviceId = req.param('id');
-  var data = {
-    id: deviceId,
-    name: 'Power switch A',
-    type: 'Power Switch',
-    power: true,
-    features: ["Turn on/off", "Еlectric meter"]
-  };
 
-  res.json(data);
+  //check if user has access to the device
+  var sql = 'SELECT COUNT(*) AS count FROM organizations_devices ';
+  sql += 'LEFT JOIN organizations_users ON od_organization_id = ou_organization_id ';
+  sql += 'WHERE od_device_id = ? and ou_user_id = ?';
+
+  databaseConnection.query(sql, [deviceId, req.user.id], function(err, rows, fields) {
+    if ( (0 < rows.length) && (0 === rows[0]['count']) ) {
+      res.status(403).send('403 Forbidden');
+      return;
+    }
+
+    //Retrieve device type and name
+    var sql = 'SELECT device_name, device_type ';
+    sql += 'FROM devices ';
+    sql += 'LEFT JOIN device_types ';
+    sql += 'ON devices.device_type_id = device_types.device_type_id ';
+    sql += 'WHERE device_id = ?';
+
+    //TODO: retrieve data
+
+    //TODO: retrieve features
+
+    //TODO: replace static response
+    var data = {
+      id: deviceId,
+      name: 'Power switch A',
+      type: 'Power Switch',
+      power: true,
+      features: ["Turn on/off", "Еlectric meter"]
+    };
+
+    res.json(data);
+  });
 }
 
 function deviceCommand(req, res) {
