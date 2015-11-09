@@ -222,32 +222,53 @@ function device(req, res) {
     }
 
     //Retrieve device type and name
-    var sql = 'SELECT device_name, device_type ';
+    var sql = 'SELECT device_name, device_type, devices.device_type_id ';
     sql += 'FROM devices ';
     sql += 'LEFT JOIN device_types ';
     sql += 'ON devices.device_type_id = device_types.device_type_id ';
-    sql += 'WHERE device_id = ?';
+    sql += 'WHERE device_id = ? LIMIT 1';
 
-    //TODO: retrieve data
-    var sql = 'SELECT feature_name, dp_property FROM device_properties ';
-    sql += 'LEFT JOIN features ON feature_id = dp_feature_id ';
-    sql += 'WHERE dp_device_id = ?';
-
-    //TODO: retrieve all features per device
-    var sql = 'SELECT feature_name FROM device_type_features ';
-    sql += 'LEFT JOIN features ON dtf_feature_id = feature_id ';
-    sql += 'WHERE dtf_type_id = 1;';
-
-    //TODO: replace static response
     var data = {
       id: deviceId,
-      name: 'Power switch A',
-      type: 'Power Switch',
-      power: true,
-      features: ["Turn on/off", "Еlectric meter"]
-    };
+      name: '',
+      type: '',
+      features: []
+    }
 
-    res.json(data);
+    databaseConnection.query(sql, [deviceId], function(err, rows, fields) {
+      if (0 === rows.length) {
+        res.status(404).send('404 Not Found');
+        return;
+      }
+
+      data.name = rows[0]['device_name'];
+      data.type = rows[0]['device_type'];
+
+      var deviceTypeId = rows[0]['device_type_id'];
+
+      //retrieve data
+      var sql = 'SELECT feature_name, dp_property FROM device_properties ';
+      sql += 'LEFT JOIN features ON feature_id = dp_feature_id ';
+      sql += 'WHERE dp_device_id = ?';
+      databaseConnection.query(sql, [deviceId], function(err, rows, fields) {
+        for (var index=0; index<rows.length; index++) {
+          var row = rows[index];
+          data[row['feature_name']] = row['dp_property'];
+        }
+
+        //retrieve all features per device
+        var sql = 'SELECT feature_name FROM device_type_features ';
+        sql += 'LEFT JOIN features ON dtf_feature_id = feature_id ';
+        sql += 'WHERE dtf_type_id = 1;';
+        databaseConnection.query(sql, [deviceTypeId], function(err, rows, fields) {
+
+          rows.forEach(function(row) {
+            data.features.push(row['feature_name']);
+          });
+          res.json(data);
+        });
+      });
+    });
   });
 }
 
