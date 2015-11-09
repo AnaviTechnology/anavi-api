@@ -229,8 +229,14 @@ function device(req, res) {
     sql += 'WHERE device_id = ?';
 
     //TODO: retrieve data
+    var sql = 'SELECT feature_name, dp_property FROM device_properties ';
+    sql += 'LEFT JOIN features ON feature_id = dp_feature_id ';
+    sql += 'WHERE dp_device_id = ?';
 
-    //TODO: retrieve features
+    //TODO: retrieve all features per device
+    var sql = 'SELECT feature_name FROM device_type_features ';
+    sql += 'LEFT JOIN features ON dtf_feature_id = feature_id ';
+    sql += 'WHERE dtf_type_id = 1;';
 
     //TODO: replace static response
     var data = {
