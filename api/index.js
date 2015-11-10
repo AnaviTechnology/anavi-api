@@ -357,7 +357,9 @@ function saveSettings(userId, data, callback) {
 function organizationsFind(userId, callback) {
   var sql = 'SELECT organization_name FROM organizations_users ';
   sql += 'LEFT JOIN organizations ON organization_id = ou_organization_id ';
-  sql += 'WHERE `ou_user_id` = ?';
+  sql += 'WHERE ou_user_id = ?';
+
+  console.log(sql);
 
   databaseConnection.query(sql, [userId], function(err, rows, fields) {
     var organizations = [];
@@ -366,6 +368,15 @@ function organizationsFind(userId, callback) {
       organizations.push(rows[index].organization_name);
     }
     return callback(organizations);
+  });
+}
+
+function organizations(req, res) {
+  organizationsFind(req.user.id, function(organizations) {
+    var data = {
+      "organizations": organizations
+    }
+    res.json(data);
   });
 }
 
@@ -413,6 +424,7 @@ apiVersion1.get('/device/:id', gatekeeper.ensureLoggedIn(), device);
 apiVersion1.get('/device/:id/:command/:key*', gatekeeper.ensureLoggedIn(), deviceCommand);
 apiVersion1.get('/device/:id/:command*', gatekeeper.ensureLoggedIn(), deviceCommand);
 apiVersion1.get('/groups', gatekeeper.ensureLoggedIn(), groups);
+apiVersion1.get('/organizations', gatekeeper.ensureLoggedIn(), organizations);
 apiVersion1.get('/settings', gatekeeper.ensureLoggedIn(), settingsLoad);
 apiVersion1.post('/settings/save', gatekeeper.ensureLoggedIn(), settingsSave);
 apiVersion1.get('/logout', gatekeeper.ensureLoggedIn(), userLogout);
