@@ -232,7 +232,8 @@ function device(req, res) {
       id: deviceId,
       name: '',
       type: '',
-      features: []
+      features: [],
+      properties: {}
     }
 
     databaseConnection.query(sql, [deviceId], function(err, rows, fields) {
@@ -253,7 +254,7 @@ function device(req, res) {
       databaseConnection.query(sql, [deviceId], function(err, rows, fields) {
         for (var index=0; index<rows.length; index++) {
           var row = rows[index];
-          data[row['feature_name']] = row['dp_property'];
+          data.properties[row['feature_name']] = row['dp_property'];
         }
 
         //retrieve all features per device
