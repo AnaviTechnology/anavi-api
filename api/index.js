@@ -258,13 +258,14 @@ function device(req, res) {
         }
 
         //retrieve all features per device
-        var sql = 'SELECT feature_name FROM device_type_features ';
+        var sql = 'SELECT feature_name, feature_unit FROM device_type_features ';
         sql += 'LEFT JOIN features ON dtf_feature_id = feature_id ';
         sql += 'WHERE dtf_type_id = 1;';
         databaseConnection.query(sql, [deviceTypeId], function(err, rows, fields) {
 
           rows.forEach(function(row) {
-            data.features.push(row['feature_name']);
+            data.features.push( { type: row['feature_name'],
+                                  unit: row['feature_unit'] } );
           });
           res.json(data);
         });
