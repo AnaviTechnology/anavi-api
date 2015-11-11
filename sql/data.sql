@@ -54,10 +54,10 @@ INSERT INTO `device_type_features` (`dtf_id`, `dtf_type_id`, `dtf_feature_id`) V
 -- Dumping data for table `features`
 --
 
-INSERT INTO `features` (`feature_id`, `feature_name`, `feature_topic`) VALUES
-(1, 'temperature', 'temperature'),
-(2, 'humidity', 'humidity'),
-(3, 'power', 'power');
+INSERT INTO `features` (`feature_id`, `feature_name`, `feature_topic`, `feature_unit`) VALUES
+(1, 'temperature', 'temperature', '°C'),
+(2, 'humidity', 'humidity', '%'),
+(3, 'power', 'power', '');
 
 --
 -- Dumping data for table `organizations`
