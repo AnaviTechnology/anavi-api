@@ -397,6 +397,53 @@ function organizationUpdate(req, res) {
   res.json(data);
 }
 
+function organizationDelete(req, res) {
+  var data = {
+                errorCode: 0,
+                errorMessage: ''
+            };
+  res.json(data);
+}
+
+function organizationUsers(req, res) {
+  var data = {
+                users: [
+                  {
+                    id: 1,
+                    name: "John",
+                    surname: "Doe"
+                  },
+                  {
+                    id: 2,
+                    name: "Jane",
+                    surname: "Doe"
+                  },
+                  {
+                    id: 3,
+                    name: "Ideal",
+                    surname: "Petrov"
+                  }
+                ]
+            };
+  res.json(data);
+}
+
+function organizationUsersAdd(req, res) {
+  var data = {
+                errorCode: 0,
+                errorMessage: ''
+            };
+  res.json(data);
+}
+
+function organizationUsersDelete(req, res) {
+  var data = {
+                errorCode: 0,
+                errorMessage: ''
+            };
+  res.json(data);
+}
+
 function loginSuccess(req, res) {
   //Retrieve user's settings and organizations
   retrieveSettings(req.user.userId, function(settingsData) {
@@ -444,6 +491,10 @@ apiVersion1.get('/groups', gatekeeper.ensureLoggedIn(), groups);
 apiVersion1.get('/organizations', gatekeeper.ensureLoggedIn(), organizations);
 apiVersion1.get('/organization/add', gatekeeper.ensureLoggedIn(), organizationAdd);
 apiVersion1.get('/organization/update', gatekeeper.ensureLoggedIn(), organizationUpdate);
+apiVersion1.get('/organization/delete', gatekeeper.ensureLoggedIn(), organizationDelete);
+apiVersion1.get('/organization/users', gatekeeper.ensureLoggedIn(), organizationUsers);
+apiVersion1.get('/organization/users/add', gatekeeper.ensureLoggedIn(), organizationUsersAdd);
+apiVersion1.get('/organization/users/delete', gatekeeper.ensureLoggedIn(), organizationUsersDelete);
 apiVersion1.get('/settings', gatekeeper.ensureLoggedIn(), settingsLoad);
 apiVersion1.post('/settings/save', gatekeeper.ensureLoggedIn(), settingsSave);
 apiVersion1.get('/logout', gatekeeper.ensureLoggedIn(), userLogout);
