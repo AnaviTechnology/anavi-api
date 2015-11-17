@@ -381,6 +381,22 @@ function organizations(req, res) {
   });
 }
 
+function organizationAdd(req, res) {
+  var data = {
+                errorCode: 0,
+                errorMessage: ''
+            };
+  res.json(data);
+}
+
+function organizationUpdate(req, res) {
+  var data = {
+                errorCode: 0,
+                errorMessage: ''
+            };
+  res.json(data);
+}
+
 function loginSuccess(req, res) {
   //Retrieve user's settings and organizations
   retrieveSettings(req.user.userId, function(settingsData) {
@@ -426,6 +442,8 @@ apiVersion1.get('/device/:id/:command/:key*', gatekeeper.ensureLoggedIn(), devic
 apiVersion1.get('/device/:id/:command*', gatekeeper.ensureLoggedIn(), deviceCommand);
 apiVersion1.get('/groups', gatekeeper.ensureLoggedIn(), groups);
 apiVersion1.get('/organizations', gatekeeper.ensureLoggedIn(), organizations);
+apiVersion1.get('/organization/add', gatekeeper.ensureLoggedIn(), organizationAdd);
+apiVersion1.get('/organization/update', gatekeeper.ensureLoggedIn(), organizationUpdate);
 apiVersion1.get('/settings', gatekeeper.ensureLoggedIn(), settingsLoad);
 apiVersion1.post('/settings/save', gatekeeper.ensureLoggedIn(), settingsSave);
 apiVersion1.get('/logout', gatekeeper.ensureLoggedIn(), userLogout);
