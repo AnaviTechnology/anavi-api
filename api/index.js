@@ -409,6 +409,7 @@ function organizationDelete(req, res) {
 }
 
 function organizationUsers(req, res) {
+  var organizationId = req.param('id');
   var data = {
                 users: [
                   {
@@ -452,6 +453,7 @@ function loginSuccess(req, res) {
   retrieveSettings(req.user.userId, function(settingsData) {
     var data = {
       user: {
+        id: req.user.userId,
         name: req.user.displayName,
         surname: req.user.displaySurname
       },
@@ -495,7 +497,7 @@ apiVersion1.get('/organizations', gatekeeper.ensureLoggedIn(), organizations);
 apiVersion1.get('/organization/add', gatekeeper.ensureLoggedIn(), organizationAdd);
 apiVersion1.get('/organization/update', gatekeeper.ensureLoggedIn(), organizationUpdate);
 apiVersion1.get('/organization/delete', gatekeeper.ensureLoggedIn(), organizationDelete);
-apiVersion1.get('/organization/users', gatekeeper.ensureLoggedIn(), organizationUsers);
+apiVersion1.get('/organization/:id/users', gatekeeper.ensureLoggedIn(), organizationUsers);
 apiVersion1.get('/organization/users/add', gatekeeper.ensureLoggedIn(), organizationUsersAdd);
 apiVersion1.get('/organization/users/delete', gatekeeper.ensureLoggedIn(), organizationUsersDelete);
 apiVersion1.get('/settings', gatekeeper.ensureLoggedIn(), settingsLoad);
