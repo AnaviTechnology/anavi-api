@@ -356,9 +356,9 @@ function saveSettings(userId, data, callback) {
 }
 
 function organizationsFind(userId, callback) {
-  var sql = 'SELECT organization_name FROM organizations_users ';
+  var sql = 'SELECT organization_id, organization_name FROM organizations_users ';
   sql += 'LEFT JOIN organizations ON organization_id = ou_organization_id ';
-  sql += 'WHERE ou_user_id = ?';
+  sql += 'WHERE ou_user_id = ? ORDER BY organization_name';
 
   console.log(sql);
 
@@ -366,7 +366,10 @@ function organizationsFind(userId, callback) {
     var organizations = [];
     if (err) { return callback(organizations); }
     for (var index=0; index<rows.length; index++) {
-      organizations.push(rows[index].organization_name);
+      organizations.push( {
+          id: rows[index].organization_id,
+          name: rows[index].organization_name
+      });
     }
     return callback(organizations);
   });
