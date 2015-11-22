@@ -359,9 +359,6 @@ function organizationsFind(userId, callback) {
   var sql = 'SELECT organization_id, organization_name FROM organizations_users ';
   sql += 'LEFT JOIN organizations ON organization_id = ou_organization_id ';
   sql += 'WHERE ou_user_id = ? ORDER BY organization_name';
-
-  console.log(sql);
-
   databaseConnection.query(sql, [userId], function(err, rows, fields) {
     var organizations = [];
     if (err) { return callback(organizations); }
@@ -410,26 +407,29 @@ function organizationDelete(req, res) {
 
 function organizationUsers(req, res) {
   var organizationId = req.param('id');
-  var data = {
-                users: [
-                  {
-                    id: 1,
-                    name: "John",
-                    surname: "Doe"
-                  },
-                  {
-                    id: 2,
-                    name: "Jane",
-                    surname: "Doe"
-                  },
-                  {
-                    id: 3,
-                    name: "Ideal",
-                    surname: "Petrov"
-                  }
-                ]
-            };
-  res.json(data);
+  //Retieve all members of an organization
+  var sql = 'SELECT user_id, user_display_name, user_display_surname ';
+  sql += 'FROM organizations_users ';
+  sql += 'LEFT JOIN users ON user_id = ou_user_id ';
+  sql += 'WHERE ou_organization_id = ? ORDER BY user_display_name ';
+
+  databaseConnection.query(sql, [organizationId], function(err, rows, fields) {
+
+    var data = {
+      users: []
+    }
+
+    for (var index=0; index<rows.length; index++) {
+      var row = rows[index];
+      data.users.push({
+        id: row.user_id,
+        name: row.user_display_name,
+        surname: row.user_display_surname
+      });
+    }
+    //Serialize data and provide HTTP response
+    res.json(data);
+  });
 }
 
 function organizationUsersAdd(req, res) {
