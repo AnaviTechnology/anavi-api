@@ -407,6 +407,7 @@ function organizationDelete(req, res) {
 
 function organizationUsers(req, res) {
   var organizationId = req.param('id');
+  var isCurrentUserMember = false;
   //Retieve all members of an organization
   var sql = 'SELECT user_id, user_display_name, user_display_surname ';
   sql += 'FROM organizations_users ';
@@ -426,9 +427,20 @@ function organizationUsers(req, res) {
         name: row.user_display_name,
         surname: row.user_display_surname
       });
+      if (row.user_id === req.user.id) {
+        isCurrentUserMember = true;
+      }
     }
-    //Serialize data and provide HTTP response
-    res.json(data);
+    //Provide HTTP response
+    if (false === isCurrentUserMember) {
+      //Reject data because the user who requested the information
+      //is not a member of this organization
+      res.status(403).send('403 Forbidden');
+    }
+    else {
+      //Return serialized data
+      res.json(data);
+    }
   });
 }
 
