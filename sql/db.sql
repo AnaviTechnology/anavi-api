@@ -52,7 +52,8 @@ CREATE TABLE IF NOT EXISTS `device_properties` (
 
 CREATE TABLE IF NOT EXISTS `device_types` (
   `device_type_id` int(5) NOT NULL,
-  `device_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+  `device_type` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `device_icon` varchar(20) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -61,11 +62,10 @@ CREATE TABLE IF NOT EXISTS `device_types` (
 -- Table structure for table `device_type_features`
 --
 
-CREATE TABLE IF NOT EXISTS `features` (
-  `feature_id` int(6) NOT NULL,
-  `feature_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `feature_topic` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
-  `feature_unit` varchar(20) COLLATE utf8_unicode_ci NOT NULL
+CREATE TABLE IF NOT EXISTS `device_type_features` (
+  `dtf_id` int(12) NOT NULL,
+  `dtf_type_id` int(5) NOT NULL,
+  `dtf_feature_id` int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -77,7 +77,8 @@ CREATE TABLE IF NOT EXISTS `features` (
 CREATE TABLE IF NOT EXISTS `features` (
   `feature_id` int(6) NOT NULL,
   `feature_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `feature_topic` varchar(40) COLLATE utf8_unicode_ci NOT NULL
+  `feature_topic` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `feature_unit` varchar(20) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
