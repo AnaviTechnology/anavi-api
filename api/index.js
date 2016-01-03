@@ -170,10 +170,11 @@ function place(req, res) {
 function devices(req, res) {
 
   //Retieve current values for devices in an organizations
-  var sql = 'SELECT device_id, device_name, feature_name, dp_property ';
+  var sql = 'SELECT device_id, device_name, feature_name, dp_property, device_icon ';
   sql += 'FROM organizations_devices ';
   sql += 'LEFT JOIN devices ON device_id = od_device_id ';
   sql += 'LEFT JOIN device_type_features ON dtf_type_id = devices.device_type_id ';
+  sql += 'LEFT JOIN device_types ON devices.device_type_id =  device_types.device_type_id '
   sql += 'LEFT JOIN features ON dtf_feature_id = feature_id ';
   sql += 'LEFT JOIN device_properties ON device_id = dp_device_id AND feature_id = dp_feature_id ';
   sql += 'LEFT JOIN organizations_users ON od_organization_id = ou_organization_id  ';
@@ -190,6 +191,7 @@ function devices(req, res) {
         devices[row['device_id']] = Object();
         devices[row['device_id']].id = row['device_id'];
         devices[row['device_id']].name = row['device_name'];
+        devices[row['device_id']].icon = row['device_icon'];
       }
       devices[row['device_id']][row['feature_name']] = row['dp_property'];
     }
