@@ -279,7 +279,7 @@ function device(req, res) {
 function deviceCommand(req, res) {
   var deviceId = req.param('id');
   var deviceCommand = req.param('command');
-  if ('power' !== deviceCommand) {
+  if ( ('power' !== deviceCommand) && ('display' !== deviceCommand) ) {
     res.status(501).send('501 Not Implemented');
     return;
   }
@@ -287,7 +287,7 @@ function deviceCommand(req, res) {
 
   //Send command to the device using MQTT
   var topic = 'device/'+deviceId;
-  var message = '{ "power": '+devicePower+' }';
+  var message = '{ "'+deviceCommand+'": '+devicePower+' }';
   console.log('topic: '+topic+' message: '+message);
   mqttClient.publish(topic, message );
 
