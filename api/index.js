@@ -279,24 +279,31 @@ function device(req, res) {
 function deviceCommand(req, res) {
   var deviceId = req.param('id');
   var deviceCommand = req.param('command');
+
   if ( ('power' !== deviceCommand) && ('display' !== deviceCommand) ) {
     res.status(501).send('501 Not Implemented');
     return;
   }
-  var devicePower = ('true' == req.param('key'));
 
-  //Send command to the device using MQTT
-  var topic = 'device/'+deviceId;
-  var message = '{ "'+deviceCommand+'": '+devicePower+' }';
-  console.log('topic: '+topic+' message: '+message);
-  mqttClient.publish(topic, message );
+  // Retrieve unique device ID form the database
+  var sql = 'SELECT device_uid ';
+  sql += 'FROM devices WHERE device_id = ? LIMIT 1';
+  databaseConnection.query(sql, [deviceId], function(err, rows, fields) {
+    if ( err || (0 == rows.length) ) {
+      // Do nothing if there is an error or if machine ID has not been found.
+      return;
+    }
+    // Add unique machine ID as prefix to the topic of MQTT message
+    var uniqueId = rows[0]['device_uid'];
+    var deviceStatus = ('true' == req.param('key'));
+    // Send command to the device using MQTT
+    var topic = uniqueId+'/config';
+    var message = '{ "'+deviceCommand+'": '+deviceStatus+' }';
+    console.log('MQTT publish topic: '+topic+' message: '+message);
+    mqttClient.publish(topic, message);
+  });
 
-  var data = {
-    id: deviceId,
-    power: devicePower
-  };
-
-  res.json(data);
+  res.json({ id: deviceId });
 }
 
 function groups(req, res) {
