@@ -18,9 +18,9 @@ SET time_zone = "+00:00";
 --
 
 INSERT INTO `devices` (`device_id`, `device_name`, `device_type_id`) VALUES
-(1, 'Power switch A', 1),
-(2, 'Power switch B', 1),
-(3, 'Weather Station', 2);
+(1, 'Power switch A', 1, ''),
+(2, 'Power switch B', 1, ''),
+(3, 'Weather Station', 2, '724cb57fb81b463980ac71543012d9cd');
 
 --
 -- Dumping data for table `device_properties`

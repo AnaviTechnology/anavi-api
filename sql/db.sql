@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `devices` (
   `device_id` int(20) NOT NULL,
   `device_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `device_type_id` int(5) NOT NULL
+  `device_uid` varchar(32) COLLATE utf8_unicode_ci NOT NULL COMMENT 'unique machine ID'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
