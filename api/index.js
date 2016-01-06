@@ -262,7 +262,7 @@ function device(req, res) {
         //retrieve all features per device
         var sql = 'SELECT feature_name, feature_unit FROM device_type_features ';
         sql += 'LEFT JOIN features ON dtf_feature_id = feature_id ';
-        sql += 'WHERE dtf_type_id = ?;';
+        sql += 'WHERE dtf_type_id = ? ORDER BY feature_name;';
         databaseConnection.query(sql, [deviceTypeId], function(err, rows, fields) {
 
           rows.forEach(function(row) {
