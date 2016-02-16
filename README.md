@@ -1,4 +1,4 @@
-# Rabbit Pi API
+# RabbitMax API
 
 Free and open source software and hardware IoT platform with HTML5 UI, Node.js HTTP API and MQTT.
 
@@ -10,12 +10,12 @@ HTTP API and a simple web interface for IoT which use MQTT to communicate betwee
 
 * Install the web application:
 
-Follow the steps below to install Rabbit Pi on Ubuntu or Debian:
+Follow the steps below to install RabbitMax on Ubuntu or Debian:
 
 ```bash
-$ git clone git@github.com:RabbitPi/rabbitpi-api.git
+$ git clone git@github.com:RabbitMax/rabbitmax-api.git
 $ cd rabbitpi-api
-$ git clone git@github.com:RabbitPi/rabbitpi-ui.git ui
+$ git clone git@github.com:RabbitMax/rabbitmax-ui.git ui
 $ npm install
 $ sudo apt-get install mysql-server
 $ mysql -u root -p < sql/db.sql
