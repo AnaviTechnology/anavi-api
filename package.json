@@ -1,5 +1,5 @@
 {
-  "name": "rabbitpi-api",
+  "name": "rabbitmax-api",
   "version": "0.0.1",
   "description": "Free and open source IoT platform",
   "main": "app/index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RabbitPi/rabbitpi-api.git"
+    "url": "git+https://github.com/RabbitMax/rabbitmax-api.git"
   },
   "keywords": [
     "iot",
@@ -32,11 +32,11 @@
   "author": "Leon Anavi <leon@anavi.org>",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/RabbitPi/rabbitpi-api/issues"
+    "url": "https://github.com/RabbitMax/rabbitmax-api/issues"
   },
-  "homepage": "https://github.com/RabbitPi/rabbitpi-api#readme",
+  "homepage": "https://github.com/RabbitMax/rabbitmax-api#readme",
   "preferGlobal": "true",
   "bin": {
-    "rabbitpi-api": "api/index.js"
+    "rabbitmax-api": "api/index.js"
   }
 }

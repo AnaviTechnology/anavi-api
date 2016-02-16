@@ -14,7 +14,7 @@ Follow the steps below to install RabbitMax on Ubuntu or Debian:
 
 ```bash
 $ git clone git@github.com:RabbitMax/rabbitmax-api.git
-$ cd rabbitpi-api
+$ cd rabbitmax-api
 $ git clone git@github.com:RabbitMax/rabbitmax-ui.git ui
 $ npm install
 $ sudo apt-get install mysql-server

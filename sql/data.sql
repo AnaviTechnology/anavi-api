@@ -1,4 +1,4 @@
-USE `rabbitpi`;
+USE `rabbitmax`;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -10,7 +10,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `rabbitpi`
+-- Database: `rabbitmax`
 --
 
 --

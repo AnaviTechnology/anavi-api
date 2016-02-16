@@ -3,7 +3,7 @@
     "host": "localhost",
     "user": "root",
     "password": "",
-    "name": "rabbitpi"
+    "name": "rabbitmax"
   },
   "mqtt": {
       "broker": "test.mosquitto.org"

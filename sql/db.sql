@@ -1,8 +1,8 @@
 --
--- Database: `rabbitpi`
+-- Database: `rabbitmax`
 --
-CREATE DATABASE IF NOT EXISTS `rabbitpi` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-USE `rabbitpi`;
+CREATE DATABASE IF NOT EXISTS `rabbitmax` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+USE `rabbitmax`;
 
 -- --------------------------------------------------------
 
@@ -16,7 +16,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `rabbitpi`
+-- Database: `rabbitmax`
 --
 
 -- --------------------------------------------------------
