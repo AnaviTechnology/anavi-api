@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 -- Dumping data for table `devices`
 --
 
-INSERT INTO `devices` (`device_id`, `device_name`, `device_type_id`) VALUES
+INSERT INTO `devices` (`device_id`, `device_name`, `device_type_id`, `device_uid`) VALUES
 (1, 'Power switch A', 1, ''),
 (2, 'Power switch B', 1, ''),
 (3, 'Weather Station', 2, '724cb57fb81b463980ac71543012d9cd');
