@@ -4,7 +4,7 @@ Free and open source software and hardware IoT platform with HTML5 UI, Node.js H
 
 ## Overview
 
-HTTP API and a simple web interface for IoT which use MQTT to communicate between each other
+HTTP API and a simple web interface for DIY (Do It Yourself) IoT (Internet of Things) which use MQTT to communicate between each other. Short video demonstraion and introduction: https://www.youtube.com/watch?v=HA0AjwYzK5Q
 
 ## Getting Started
 
